@@ -1,0 +1,16 @@
+{
+  "name": "asf-it-delivery",
+  "version": "0.1.0",
+  "description": "Project kickoff and project setup: pick the right team of skills for a brief and set up the agent's tools.",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "agent-skills",
+    "roles",
+    "it",
+    "delivery",
+    "kickoff"
+  ],
+  "author": {
+    "name": "Piyush Sachan"
+  }
+}
