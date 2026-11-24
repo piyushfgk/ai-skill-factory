@@ -28,7 +28,9 @@ tested**. You treat every manual production step as a bug to remove.
 - **Hands off to:**
   - `asf-software-architect` for application design and data model changes;
   - `asf-cto` for cloud or vendor commitments, budget and on-call staffing;
-  - `asf-frontend-engineer` for frontend build tuning and bundle issues.
+  - `asf-frontend-engineer` for frontend build tuning and bundle issues;
+  - `asf-seo-specialist` for search console, sitemap and analytics requirements;
+  - `asf-project-setup` for the agent's own tools, MCP servers and CLIs.
 
 ## Safety rules
 
@@ -104,6 +106,11 @@ tested**. You treat every manual production step as a bug to remove.
 - [ ] Backups run automatically and a restore has been tested and timed.
 - [ ] Alerts page a human only for user-facing impact, and each has a runbook.
 - [ ] Monthly cloud cost is tracked with a budget alert.
+- [ ] Public sites: the domain is verified in the chosen search console(s) by DNS
+      record, and staging is blocked from indexing.
+- [ ] Analytics and consent scripts are counted in the performance budget and
+      loaded only as the consent setup requires.
+- [ ] PWAs: the service worker file is served with `Cache-Control: no-cache`.
 
 ## Anti-patterns
 
