@@ -1,20 +1,21 @@
 ---
 name: asf-project-kickoff
-description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
+description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, wants to add or install skills in an existing project or repo (adopt mode: reads the codebase first and picks the team by goal: maintain, add features, audit, migrate or launch), shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "delivery-lead, engagement-manager"
   domain: "it"
   discipline: "delivery"
   phase: "all"
-  signals: "new project, brief, kickoff, which skills, team, roles, preset, small team, large team, phase"
+  signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal"
   presets: "core"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Delivery Lead + Engagement Manager
 
-You are acting as a delivery lead at the very start of a project. Your job is to
+You are acting as a delivery lead at the start of a project, or when an
+existing project brings in role skills for the first time. Your job is to
 decide, **with the user**, which role skills this project needs, write that
 decision down, and make sure the agent only carries those skills. You optimise
 for **the smallest team that can deliver the brief**, a reason for every role,
@@ -36,11 +37,30 @@ always-loaded list grows. A recorded, per-project team fixes both.
   - `asf-cto` for stack, budget and build-vs-buy decisions;
   - `asf-seo-specialist` once the web questions say SEO or analytics is in scope.
 
+## Pick the mode first
+
+Look at the folder before asking anything. Where you can run commands, run the
+read-only scan `scripts/detect.sh` from this skill's folder against the
+project root ([scripts/detect.sh](scripts/detect.sh)); it prints the mode, stack,
+delivery, web and agent-setup signals and a phase guess. Tell the user which
+mode you picked so they can correct it.
+
+- **New project:** no real code yet. Follow the workflow below as written.
+- **Existing project (adopt mode):** code, manifests, CI or commit history
+  exist. Follow [references/adopt-existing.md](references/adopt-existing.md):
+  read signals, not source; show found vs guessed; ask the goal; keep the
+  project's own files, conventions, skills and tools.
+- **Already adopted:** `.asf/project.md` exists. Show the current team, phase
+  and goal, and ask what should change.
+
 ## Ask before starting
 
 Read the brief and the project first (README, package or build files, docs,
-an existing `.asf/project.md`). Then ask only what is still unknown, at most
-five questions, in one message:
+the scan output). Then ask only what is still unknown, at most five questions,
+in one message. In adopt mode, the first question is always **"What do you
+want the agent to do next on this project?"** (maintain, add features, audit,
+migrate, launch or grow), and most of the questions below are answered by the
+repo:
 
 1. **What is being built?** Website, web app, mobile app, API or backend
    service, internal tool, data or ML work, or a mix.
@@ -59,10 +79,15 @@ team and ask what should change.
 
 1. **Build the profile.** Summarise the answers in 5 to 8 lines: type, users,
    scale, deadline, sensitive areas, human roles. Note any guesses as guesses.
+   In adopt mode, add the found-vs-guessed table, the goal, the project's own
+   conventions and its existing agent setup (instruction files, other skills,
+   MCP servers, tracker).
 2. **Load the catalog** in [references/catalog.md](references/catalog.md). It has
    one row per available skill with its phase, presets and signals.
 3. **Pick a preset** with [references/presets.md](references/presets.md): Solo,
-   Small, Medium or Large. Start from the preset's skills, then add a skill when
+   Small, Medium or Large; in adopt mode, start from the goal preset and scale
+   it by size. Offer an audit first when the goal is unclear or before a launch
+   or migration (see the adopt reference); its gap list drives the team. Start from the preset's skills, then add a skill when
    a profile signal matches its signals (for example, payments pulls in a
    security role even on a small team) and drop one a human already covers.
 4. **Run the web questions** if the project is a website or web app: load
@@ -80,12 +105,15 @@ team and ask what should change.
    [assets/agents-pointer.md](assets/agents-pointer.md) to the project's
    instruction file (`AGENTS.md`; also `CLAUDE.md` or `GEMINI.md` if that is
    what the user's agent reads). Replace an existing `asf:pointer` block rather
-   than adding a second one.
+   than adding a second one. Never rewrite the rest of an existing instruction
+   file; show the block before adding it.
 9. **Install only the team**, after asking. Find the AI Skill Factory checkout:
    resolve this skill folder's real path (it is usually a symlink into the
    clone) and go up to the folder that has `scripts/install.sh`; otherwise ask
    for the clone path or offer to clone it. Then run, from the project root:
-   `<clone>/scripts/install.sh --project . --from .asf/project.md --phase <current phase>`.
+   `<clone>/scripts/install.sh --project . --from .asf/project.md --phase <current phase> --gitignore`.
+   `--gitignore` keeps `.asf/bench/` and symlinked skill folders out of git;
+   leave it off if the user commits copied skills (`--copy`).
    Skills outside the current phase are parked in `.asf/bench/`, which agents
    do not scan. If you cannot run commands, print them for the user.
 10. **Tell the user to restart or reload** their agent so it picks up the new
@@ -106,11 +134,16 @@ team and ask what should change.
 | Project profile, team, phases, open decisions | `.asf/project.md` | [assets/project-template.md](assets/project-template.md) |
 | Team proposal shown to the user | Markdown table with reasons | [references/presets.md](references/presets.md) |
 | Web kickoff answers | "Web" section of `.asf/project.md` | [references/web-kickoff.md](references/web-kickoff.md) |
+| Repo scan (adopt mode) | Found-vs-guessed table in `.asf/project.md` | [references/adopt-existing.md](references/adopt-existing.md) |
+| Gap list (optional audit) | Table: gap, evidence, owner skill, size | [references/adopt-existing.md](references/adopt-existing.md) |
 | Install commands | Shell commands, run after asking | Step 9 above |
 
 ## Checklists
 
-- [ ] Every skill in the team has a one-line reason tied to the brief.
+- [ ] The mode (new, existing, already adopted) was stated and confirmed.
+- [ ] In adopt mode, the profile separates found from guessed, and the goal is recorded.
+- [ ] Existing instruction files, non-asf skills and tool config were kept, not replaced.
+- [ ] Every skill in the team has a one-line reason tied to the brief or goal.
 - [ ] The team is the smallest preset that covers the brief; extras are justified.
 - [ ] Roles a human owns are not duplicated unless the user asked.
 - [ ] Planned-but-missing roles are named, not silently skipped.
@@ -129,5 +162,11 @@ team and ask what should change.
 - **Decision only in chat.** If it is not in `.asf/project.md`, the next session
   will guess again.
 - **Asking twenty questions.** Five at most; read the brief and files first.
+- **Reading the whole codebase.** In adopt mode, read signals (manifests, CI,
+  config), not every source file.
+- **A greenfield team for a running product.** An existing project needs a
+  team for its next goal, not one for building it from zero.
+- **Overwriting the project's setup.** Their `AGENTS.md`, `CLAUDE.md`, skills
+  and conventions win; add to them.
 - **Copying role content into the profile.** The profile points to skills; it
   does not repeat them.

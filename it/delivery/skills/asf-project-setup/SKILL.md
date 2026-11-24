@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform"
   presets: "core"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Developer-Experience Engineer + Platform Engineer
@@ -56,6 +56,13 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 
 ## Workflow
 
+0. **Record what exists first** (existing projects). Read the "Found in repo"
+   and "Existing agent setup" sections of `.asf/project.md`, or check the
+   instruction files, skills folders, MCP config, CI and issue templates
+   yourself. Write the working setup down as it is, and propose changes only for
+   real gaps: a missing tracker convention, a globally enabled MCP server only
+   this project uses, an over-broad token, a tool nobody pinned. Never replace a
+   working tracker, CI or instruction file unasked.
 1. **Pick the platform setup** with
    [references/platforms.md](references/platforms.md): where skills, the
    instruction file and MCP config live for the user's agent, and how to share
@@ -95,6 +102,7 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 
 ## Checklists
 
+- [ ] In an existing project, the working setup was recorded before any change was proposed.
 - [ ] Every app the agent uses has one route (CLI, MCP or custom CLI) and a reason.
 - [ ] No MCP server is enabled globally that only one project needs.
 - [ ] The instruction file is under about 100 lines and points to `.asf/project.md`.

@@ -11,7 +11,7 @@ Phases: `all`, `discover`, `design`, `build`, `launch`, `operate`.
 
 | Skill | Bundle | Roles | Phase | Presets | Signals |
 |---|---|---|---|---|---|
-| `asf-project-kickoff` | `it/delivery` | delivery-lead, engagement-manager | all | core | new project, brief, kickoff, which skills, team, roles, preset, small team, large team, phase |
+| `asf-project-kickoff` | `it/delivery` | delivery-lead, engagement-manager | all | core | new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal |
 | `asf-project-setup` | `it/delivery` | developer-experience-engineer, platform-engineer | all | core | agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform |
 | `asf-ui-ux-designer` | `it/design` | ui-designer, ux-researcher | design, build | small, medium, large | ux, ui, user research, flows, wireframes, visual design, design tokens, design system, usability |
 | `asf-devops-engineer` | `it/engineering` | devops-engineer, site-reliability-engineer | build, launch, operate | solo, small, medium, large | hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns |

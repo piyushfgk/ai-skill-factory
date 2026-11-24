@@ -13,20 +13,22 @@
 #   --phase NAME         activate only skills whose metadata.phase includes NAME (or "all");
 #                        the rest are parked in <base>/.asf/bench, which agents do not scan.
 #                        NAME: discover, design, build, launch, operate
+#   --gitignore          with --project: add .asf/bench/ and symlinked asf-* skill folders
+#                        to the project's .gitignore (symlinks point into one person's clone)
 #   --copy               copy files instead of symlinking (symlinks follow `git pull`)
 #   --uninstall          remove the named (or all) asf-* skills installed from this repo
 #   --list               list available skills and exit
 #   -h, --help           show this help
 #
 # Example (from a project root):
-#   ~/ai-skill-factory/scripts/install.sh --project . --from .asf/project.md --phase build
+#   ~/ai-skill-factory/scripts/install.sh --project . --from .asf/project.md --phase build --gitignore
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 AGENT="all"; BASE="$HOME"; MODE="link"; ACTION="install"; WANT=()
-FROM=""; PHASE=""; PROJECT=""
+FROM=""; PHASE=""; PROJECT=""; GITIGNORE=""
 
-usage() { sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,26p' "$0" | sed 's/^# \{0,1\}//'; }
 
 # Value of a one-line frontmatter key (top level or under metadata).
 fm() { # file key
@@ -57,6 +59,7 @@ while [[ $# -gt 0 ]]; do
     --project)   BASE="$(cd "${2:?--project needs a directory}" && pwd)"; PROJECT=1; shift 2 ;;
     --from)      FROM="${2:?--from needs a file}"; shift 2 ;;
     --phase)     PHASE="${2:?--phase needs a value}"; shift 2 ;;
+    --gitignore) GITIGNORE=1; shift ;;
     --copy)      MODE="copy"; shift ;;
     --uninstall) ACTION="uninstall"; shift ;;
     --list)      ACTION="list"; shift ;;
@@ -148,6 +151,26 @@ if [[ "$ACTION" == "install" && -n "$FROM" && -n "$PROJECT" ]]; then
       [[ " ${WANT[*]} " == *" $name "* ]] || unplace "$dest"
     done
   done
+fi
+
+# With --gitignore in a project, keep machine-specific paths out of git.
+if [[ "$ACTION" == "install" && -n "$GITIGNORE" ]]; then
+  if [[ -z "$PROJECT" ]]; then
+    echo "--gitignore only applies with --project; skipped" >&2
+  else
+    gi="$BASE/.gitignore"; touch "$gi"
+    entries=(".asf/bench/")
+    if [[ "$MODE" == "link" ]]; then
+      for t in "${TARGETS[@]}"; do entries+=("${t#"$BASE"/}/asf-*"); done
+    fi
+    for e in "${entries[@]}"; do
+      if ! grep -qxF "$e" "$gi"; then
+        grep -qxF "# AI Skill Factory (scripts/install.sh --gitignore)" "$gi" || \
+          printf '\n# AI Skill Factory (scripts/install.sh --gitignore)\n' >> "$gi"
+        echo "$e" >> "$gi"; echo "ignored  $e"
+      fi
+    done
+  fi
 fi
 
 if [[ "$ACTION" == "install" ]]; then
