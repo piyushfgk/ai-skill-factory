@@ -7,7 +7,7 @@ metadata:
   domain: "it"
   discipline: "engineering"
   phase: "design, build, operate"
-  signals: "ai, llm, gpt, claude, gemini, model, prompt, rag, embeddings, vector database, chatbot, summarise, extraction, classification, agent, tool use, function calling, mcp server, evals, hallucination, token cost"
+  signals: "ai, llm, gpt, claude, gemini, language model, prompt, rag, embeddings, vector database, chatbot, summarise, extraction, classification, ai agent, tool use, function calling, mcp server, evals, hallucination, token cost"
   presets: "medium, large"
   version: "0.1.0"
 ---

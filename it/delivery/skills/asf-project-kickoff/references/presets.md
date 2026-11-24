@@ -53,8 +53,8 @@ coverage (larger team).
 | `asf-cloud-engineer` | Cloud accounts, infrastructure as code and cost, when a cloud provider is used |
 | `asf-ai-engineer` | Only if the product has AI features (chat, search, extraction) |
 | `asf-agent-orchestrator` | When several AI worker agents build in parallel |
-| `asf-data-analyst` *(planned)* | Metrics, dashboards, experiments |
-| `asf-technical-writer` *(planned)* | User docs, API docs, release notes |
+| `asf-data-analyst` | Metrics, dashboards, experiments |
+| `asf-technical-writer` | User docs, API docs, release notes |
 
 ### Large = Medium plus, by need
 
@@ -114,6 +114,6 @@ Show the user this, then ask: accept, switch preset, or add/drop skills?
 | asf-product-manager | product manager, business analyst | discover, design, launch | ... |
 
 **Left out:** asf-software-architect (one service, one database; the CTO covers it).
-**Needed but not in the library yet:** backend engineer (planned); the frontend
-and architect skills cover the API for now.
+**Needed but not in the library yet:** SRE (planned); asf-devops-engineer
+covers monitoring and on-call for now.
 ```

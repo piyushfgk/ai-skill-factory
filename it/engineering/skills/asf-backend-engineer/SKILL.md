@@ -7,7 +7,7 @@ metadata:
   domain: "it"
   discipline: "engineering"
   phase: "build, launch"
-  signals: "backend, api, server, endpoint, rest, graphql, auth, login, jobs, queue, cron, webhook, serverless, functions, php, laravel, wordpress, cms, node, python, go, cache, uploads, payments"
+  signals: "backend, api, server, endpoint, rest, graphql, auth, login, jobs, queue, cron, webhook, serverless, functions, php, laravel, wordpress, cms, node, python, golang, cache, uploads, payments"
   presets: "small, medium, large"
   version: "0.1.0"
 ---

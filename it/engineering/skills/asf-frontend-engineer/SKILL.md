@@ -7,9 +7,9 @@ metadata:
   domain: "it"
   discipline: "engineering"
   phase: "build, launch"
-  signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
+  signals: "website, landing page, web app, pages, contact form, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
   presets: "solo, small, medium, large"
-  version: "0.3.0"
+  version: "0.3.1"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist

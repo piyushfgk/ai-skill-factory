@@ -77,6 +77,8 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/engineering` | [`asf-ai-engineer`](it/engineering/skills/asf-ai-engineer/SKILL.md) | AI engineer, LLM evaluation engineer | LLM features, RAG, model choice and cost, guardrails, evals |
 | `it/operations` | [`asf-database-administrator`](it/operations/skills/asf-database-administrator/SKILL.md) | Database administrator, data reliability engineer | backups and restore drills, safe migrations, query tuning, engine choice |
 | `it/delivery` | [`asf-agent-orchestrator`](it/delivery/skills/asf-agent-orchestrator/SKILL.md) | AI delivery lead, agent operations engineer | brief worker agents, file ownership, review gates, hand-offs |
+| `it/engineering` | [`asf-data-analyst`](it/engineering/skills/asf-data-analyst/SKILL.md) | Data analyst, analytics engineer | KPI definitions, SQL and reports, experiments, audit evidence with provenance |
+| `it/delivery` | [`asf-technical-writer`](it/delivery/skills/asf-technical-writer/SKILL.md) | Technical writer, documentation engineer | READMEs, runbooks, hand-off and verification notes, release notes |
 | `it/growth` | [`asf-seo-specialist`](it/growth/skills/asf-seo-specialist/SKILL.md) | SEO specialist, web analytics specialist | technical SEO, keywords, search console, analytics and consent |
 
 The full catalog, with each skill's phase, presets and signals, is in
@@ -197,6 +199,8 @@ companions/<platform>.md            # where a vendor's skills live, defaults, si
 scripts/catalog.sh                  # regenerate the kickoff's skill catalog from frontmatter
 scripts/validate.sh                 # check every skill against the spec and repo rules
 scripts/check_content.py            # block real IPs, emails, key paths, tokens; parse frontmatter as YAML
+scripts/check_routing.py            # routing tests: made-up briefs must pull in the right skills
+tests/routing/*.md                  # the made-up briefs and the skills each should and should not pull in
 it/<discipline>/                    # a bundle, also a Claude Code plugin
   .claude-plugin/plugin.json
   skills/asf-<role>/SKILL.md
@@ -211,8 +215,9 @@ must pass.
 
 ## Roadmap
 
-Next skills: data analyst and technical writer, then routing tests with
-made-up briefs.
+Next: more Large-preset roles (SRE, performance, compliance and privacy,
+accessibility audit, support, localisation), and more routing cases. Ideas and
+pull requests are welcome.
 
 ## License
 

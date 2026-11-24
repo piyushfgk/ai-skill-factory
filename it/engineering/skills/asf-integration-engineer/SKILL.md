@@ -7,7 +7,7 @@ metadata:
   domain: "it"
   discipline: "engineering"
   phase: "build, launch, operate"
-  signals: "integration, webhook, api client, third-party, email sending, smtp, spf, dkim, dmarc, slack, teams, whatsapp, telegram, sms, crm, erp, sync, zapier, n8n, make, automation, mcp server, cli, pdf generation, documents"
+  signals: "integration, webhook, api client, third-party, email sending, smtp, spf, dkim, dmarc, slack, microsoft teams, whatsapp, telegram, sms, crm, erp, sync, zapier, n8n, make.com, automation, mcp server, cli, pdf generation, documents"
   presets: "medium, large"
   version: "0.1.0"
 ---

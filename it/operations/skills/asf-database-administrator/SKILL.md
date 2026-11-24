@@ -7,7 +7,7 @@ metadata:
   domain: "it"
   discipline: "operations"
   phase: "build, launch, operate"
-  signals: "database, db, postgres, postgresql, mysql, mariadb, sqlite, mongodb, schema, migration, index, slow query, backup, restore, replication, failover, upgrade, dump, data clean-up"
+  signals: "dba, database administrator, database migration, managed database, postgres, postgresql, mysql, mariadb, sqlite, mongodb, slow query, query tuning, backup, backups, restore, replication, failover, database upgrade, dump, data clean-up"
   presets: "medium, large"
   version: "0.1.0"
 ---
