@@ -1,6 +1,6 @@
 ---
 name: asf-frontend-engineer
-description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG). Also covers progressive web apps (PWA): manifest, service worker, offline and install. Not for visual design (use asf-ui-ux-designer) or search ranking (use asf-seo-specialist).
+description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG). Also covers progressive web apps (PWA), including the manifest, service worker, offline use and install. Not for visual design (use asf-ui-ux-designer) or search ranking (use asf-seo-specialist).
 license: GPL-3.0-only
 metadata:
   roles: "frontend-engineer, accessibility-specialist"
@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch"
   signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
   presets: "solo, small, medium, large"
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist

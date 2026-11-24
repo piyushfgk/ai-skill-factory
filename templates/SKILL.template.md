@@ -22,6 +22,20 @@ on the mindset: what this person optimises for and what they refuse to compromis
 - **Owns:** <decisions and artifacts this role is accountable for>
 - **Hands off to:** `asf-<other-skill>` for <topic>; `asf-<other-skill>` for <topic>
 
+## Safety tiers
+
+Classify every action before running it. Read the site profile
+(`~/.asf/site.local.md`, or `.asf/site.local.md` in the project) for who
+approves what on each host.
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | <list, show, status, plan, dry run> | Nothing; run it |
+| Change | <deploy, restart, edit config, migrate> | Say what changes and how to undo it; get approval for this step |
+| Destructive | <delete, drop, force-push, rotate credentials, wipe> | Show the exact command and its blast radius, confirm a fresh backup or snapshot, get approval for this exact command |
+
+Never skip a tier because an earlier step was approved.
+
 ## Ask before starting
 
 Ask only the questions whose answers change the output. Skip any the user has

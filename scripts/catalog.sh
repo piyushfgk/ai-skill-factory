@@ -38,6 +38,7 @@ Phases: `all`, `discover`, `design`, `build`, `launch`, `operate`.
 EOF
   while IFS= read -r md; do
     dir="$(dirname "$md")"; rel="${dir#"$REPO_ROOT"/}"; bundle="${rel%%/skills/*}"
+    # shellcheck disable=SC2016  # backticks are Markdown, not command substitution
     printf '| `%s` | `%s` | %s | %s | %s | %s |\n' \
       "$(fm "$md" name)" "$bundle" "$(fm "$md" roles)" "$(fm "$md" phase)" \
       "$(fm "$md" presets)" "$(fm "$md" signals)"

@@ -4,13 +4,13 @@ Where each agent looks for skills, instructions and MCP config. Agent tools
 change quickly: confirm paths and commands against the platform's current docs
 before writing config, and update this file when they move.
 
-| | Claude Code | Codex CLI | Gemini CLI |
-|---|---|---|---|
-| Project skills | `.claude/skills/` | `.agents/skills/` (from the working folder up to the repo root) | `.gemini/skills/` or `.agents/skills/` |
-| User skills | `~/.claude/skills/` | `~/.agents/skills/` | `~/.gemini/skills/` or `~/.agents/skills/` |
-| Instruction file | `CLAUDE.md` (can import another file with `@AGENTS.md`) | `AGENTS.md` | `GEMINI.md` by default; can be set to read `AGENTS.md` in settings |
-| MCP config | Project `.mcp.json`, or user settings; `claude mcp add` | `config.toml` under `~/.codex/` (`[mcp_servers.<name>]`); `codex mcp add` | `mcpServers` in `.gemini/settings.json` (project) or `~/.gemini/settings.json` |
-| Install the library | Plugin marketplace, or `scripts/install.sh --agent claude` | `scripts/install.sh --agent agents` | `scripts/install.sh --agent agents`, or `gemini skills install` |
+| | Claude Code | Codex CLI | Gemini CLI | Hermes Agent |
+|---|---|---|---|---|
+| Project skills | `.claude/skills/` | `.agents/skills/` (from the working folder up to the repo root) | `.gemini/skills/` or `.agents/skills/` | `.hermes/skills/` or `.agents/skills/`, after `hermes skills trust` |
+| User skills | `~/.claude/skills/` | `~/.agents/skills/` | `~/.gemini/skills/` or `~/.agents/skills/` | `~/.hermes/skills/`; more folders via `skills.external_dirs` in `~/.hermes/config.yaml` |
+| Instruction file | `CLAUDE.md` (can import another file with `@AGENTS.md`) | `AGENTS.md` | `GEMINI.md` by default; can be set to read `AGENTS.md` in settings | See the Hermes docs |
+| MCP config | Project `.mcp.json`, or user settings; `claude mcp add` | `config.toml` under `~/.codex/` (`[mcp_servers.<name>]`); `codex mcp add` | `mcpServers` in `.gemini/settings.json` (project) or `~/.gemini/settings.json` | `~/.hermes/config.yaml`; see the Hermes docs |
+| Install the library | Plugin marketplace, or `scripts/install.sh --agent claude` | `scripts/install.sh --agent agents` | `scripts/install.sh --agent agents`, or `gemini skills install` | `scripts/install.sh --agent hermes`, or add `~/.agents/skills` to `skills.external_dirs` |
 
 Other agents that support the Agent Skills standard usually read
 `.agents/skills/`. Agents without skill support can be pointed at a
@@ -46,5 +46,6 @@ capability is missing there.
 | `.asf/project.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` | Yes |
 | `.claude/skills/`, `.agents/skills/` as symlinks | No: they point into one person's clone. Ignore them, or install with `--copy` and commit the copies |
 | `.asf/bench/` | No (same reason) |
+| `.asf/site.local.md`, `~/.asf/site.local.md` | Never: hosts, accounts and approvals are site-specific |
 | Project MCP config | Yes, if it holds no secrets (use env var references) |
 | `.env` and other secret files | Never; add to the ignore file |

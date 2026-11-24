@@ -59,7 +59,7 @@ while IFS= read -r skill_md; do
   # Only spec fields at the top level of the frontmatter.
   bad=$(awk 'NR==1{next} $0=="---"{exit} /^[A-Za-z_-]+:/{k=$0; sub(/:.*/, "", k); print k}' "$skill_md" \
         | grep -vxE 'name|description|license|compatibility|metadata' || true)
-  [[ -z "$bad" ]] || err "non-portable frontmatter keys: $(echo $bad)"
+  [[ -z "$bad" ]] || err "non-portable frontmatter keys: ${bad//$'\n'/ }"
 
   lines=$(wc -l < "$skill_md")
   (( lines < 500 )) || err "SKILL.md has $lines lines (keep under 500; move detail to references/)"
@@ -71,7 +71,7 @@ while IFS= read -r skill_md; do
 done < <(find "$REPO_ROOT" -path "$REPO_ROOT/.git" -prune -o -path '*/skills/*/SKILL.md' -print | sort)
 
 # Duplicate skill names across bundles would clash once installed into one folder.
-dupes=$(find "$REPO_ROOT" -path '*/skills/*/SKILL.md' -not -path '*/.git/*' | xargs -r -n1 dirname | xargs -r -n1 basename | sort | uniq -d)
+dupes=$(find "$REPO_ROOT" -path '*/skills/*/SKILL.md' -not -path '*/.git/*' -exec dirname {} \; | sed 's|.*/||' | sort | uniq -d)
 [[ -z "$dupes" ]] || { echo "• duplicate skill names: $dupes"; fail=1; }
 
 # Every bundle with a plugin.json must be in the marketplace.
@@ -86,6 +86,14 @@ done < <(find "$REPO_ROOT" -path "$REPO_ROOT/.claude-plugin" -prune -o -path '*/
 # The kickoff's catalog must match the skills' frontmatter.
 if [[ -x "$REPO_ROOT/scripts/catalog.sh" ]]; then
   "$REPO_ROOT/scripts/catalog.sh" --check || { echo "• run scripts/catalog.sh and commit the result"; fail=1; }
+fi
+
+# No personal or secret data in a public repo; frontmatter is real YAML.
+if command -v python3 >/dev/null 2>&1; then
+  echo "• content scan (IPs, emails, key paths, tokens) and YAML frontmatter"
+  python3 "$REPO_ROOT/scripts/check_content.py" "$REPO_ROOT" || fail=1
+else
+  echo "• python3 not found: content scan skipped (CI runs it)"
 fi
 
 # Optional: the reference validator from https://github.com/agentskills/agentskills

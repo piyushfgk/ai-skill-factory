@@ -114,6 +114,13 @@ cd ~/code/my-app
 ~/ai-skill-factory/scripts/install.sh --project . --from .asf/project.md --phase design
 ```
 
+Add `--dry-run` to any command to see what would change first. The installer
+only replaces or removes what it created (symlinks into this repo, or copies
+with its `.asf-installed` marker); a folder of yours with the same name is kept.
+
+For **Hermes Agent**, use `--agent hermes` (installs into `~/.hermes/skills`),
+or add `~/.agents/skills` to `skills.external_dirs` in `~/.hermes/config.yaml`.
+
 `--from` installs the skills listed in `.asf/project.md` and removes ones that
 are no longer in the team. `--phase` keeps only that phase's skills active and
 parks the rest in `.asf/bench/`. Run it again with the next phase when you move on. `--gitignore`
@@ -133,6 +140,15 @@ to copy instead, and `--uninstall` to remove them.
 Point the agent at a `SKILL.md` file and ask it to follow it, or paste the file
 into its instructions. The skills use no agent-specific tools.
 
+## Your site profile stays local
+
+Skills that touch servers, accounts or several workspaces read a **site
+profile**: `~/.asf/site.local.md` on your machine (or `.asf/site.local.md` in a
+project). It lists your hosts and how to reach them, accounts and where their
+secrets live (names only), your tools, and who approves each safety tier
+(read-only, change, destructive). It is git-ignored and never part of this
+repo. `asf-project-setup` creates it from a template.
+
 ## Repository layout
 
 ```
@@ -142,6 +158,7 @@ templates/SKILL.template.md         # copy this to start a new skill
 scripts/install.sh                  # install into Claude / Codex / Gemini skill folders
 scripts/catalog.sh                  # regenerate the kickoff's skill catalog from frontmatter
 scripts/validate.sh                 # check every skill against the spec and repo rules
+scripts/check_content.py            # block real IPs, emails, key paths, tokens; parse frontmatter as YAML
 it/<discipline>/                    # a bundle, also a Claude Code plugin
   .claude-plugin/plugin.json
   skills/asf-<role>/SKILL.md
