@@ -44,6 +44,18 @@ while IFS= read -r skill_md; do
     (( n <= 2 )) || err "metadata.roles lists $n roles (max 2): $roles"
   fi
 
+  # Fields the kickoff router relies on (see AGENTS.md).
+  phase="$(fm "$skill_md" phase)"; presets="$(fm "$skill_md" presets)"; signals="$(fm "$skill_md" signals)"
+  [[ -n "$signals" ]] || err "metadata.signals is missing"
+  if [[ -z "$phase" ]]; then err "metadata.phase is missing"
+  else for v in ${phase//,/ }; do
+    [[ "$v" =~ ^(all|discover|design|build|launch|operate)$ ]] || err "metadata.phase has unknown value '$v'"
+  done; fi
+  if [[ -z "$presets" ]]; then err "metadata.presets is missing"
+  else for v in ${presets//,/ }; do
+    [[ "$v" =~ ^(core|solo|small|medium|large)$ ]] || err "metadata.presets has unknown value '$v'"
+  done; fi
+
   # Only spec fields at the top level of the frontmatter.
   bad=$(awk 'NR==1{next} $0=="---"{exit} /^[A-Za-z_-]+:/{k=$0; sub(/:.*/, "", k); print k}' "$skill_md" \
         | grep -vxE 'name|description|license|compatibility|metadata' || true)
@@ -70,6 +82,11 @@ while IFS= read -r pj; do
   grep -q "\"$rel\"" "$mk" || { echo "• $rel is not listed in marketplace.json"; fail=1; }
   grep -q "\"name\": \"$pname\"" "$mk" || { echo "• plugin $pname is not listed in marketplace.json"; fail=1; }
 done < <(find "$REPO_ROOT" -path "$REPO_ROOT/.claude-plugin" -prune -o -path '*/.claude-plugin/plugin.json' -print)
+
+# The kickoff's catalog must match the skills' frontmatter.
+if [[ -x "$REPO_ROOT/scripts/catalog.sh" ]]; then
+  "$REPO_ROOT/scripts/catalog.sh" --check || { echo "• run scripts/catalog.sh and commit the result"; fail=1; }
+fi
 
 # Optional: the reference validator from https://github.com/agentskills/agentskills
 if command -v skills-ref >/dev/null 2>&1; then

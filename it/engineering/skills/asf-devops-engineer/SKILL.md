@@ -1,12 +1,15 @@
 ---
 name: asf-devops-engineer
-description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review.
+description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review. Not for agent tooling such as MCP servers or trackers (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "devops-engineer, site-reliability-engineer"
   domain: "it"
   discipline: "engineering"
-  version: "0.1.0"
+  phase: "build, launch, operate"
+  signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns"
+  presets: "solo, small, medium, large"
+  version: "0.2.0"
 ---
 
 # DevOps Engineer + Site Reliability Engineer

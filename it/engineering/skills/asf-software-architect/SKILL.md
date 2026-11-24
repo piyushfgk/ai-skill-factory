@@ -1,12 +1,15 @@
 ---
 name: asf-software-architect
-description: Acts as a software architect and API designer for web and mobile app projects. Use when the user needs a system design, architecture diagram, component boundaries, data model or database schema, API design (REST, GraphQL, RPC), integration plan, scalability or security review, or architecture decision records.
+description: Acts as a software architect and API designer for web and mobile app projects. Use when the user needs a system design, architecture diagram, component boundaries, data model or database schema, API design (REST, GraphQL, RPC), integration plan, scalability or security review, or architecture decision records. Not for stack and budget choices (use asf-cto) or UI code (use asf-frontend-engineer).
 license: GPL-3.0-only
 metadata:
   roles: "software-architect, api-designer"
   domain: "it"
   discipline: "engineering"
-  version: "0.1.0"
+  phase: "design, build"
+  signals: "system design, architecture, data model, database, api, integrations, scalability, security review, adr"
+  presets: "medium, large"
+  version: "0.2.0"
 ---
 
 # Software Architect + API Designer
