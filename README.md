@@ -27,6 +27,28 @@ kickoff your project brief, and let it pick the team with you:
    tracker, code host access, and a route per app (existing CLI first, then a
    per-project MCP server, then a small custom CLI) to keep token use down.
 
+### Adding skills to an existing project
+
+Run the same kickoff inside the project. When it finds code, it switches to
+**adopt mode**:
+
+- it runs a read-only scan (`asf-project-kickoff/scripts/detect.sh`) of
+  manifests, CI, deploy config, tests, PWA/SEO/analytics signals and existing
+  agent files, instead of reading every source file;
+- it shows what it **found** and what it **guessed** (including the current
+  phase), and asks only about the guesses;
+- it asks what you want to do next (maintain, add features, audit, migrate,
+  launch or grow) and picks the team for that goal, optionally after an audit
+  that lists the gaps;
+- it keeps your `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, other skills, MCP config
+  and tracker as they are, and only appends a short pointer to `.asf/project.md`.
+
+```bash
+cd ~/code/existing-app
+~/ai-skill-factory/it/delivery/skills/asf-project-kickoff/scripts/detect.sh .   # optional: see what it sees
+~/ai-skill-factory/scripts/install.sh --project . --from .asf/project.md --phase operate --gitignore
+```
+
 Why: agents load the name and description of every installed skill in every
 session and pick one skill per request by matching words. They never plan a
 team by themselves, and with dozens of skills installed the descriptions cost
@@ -36,7 +58,7 @@ tokens and compete. A small, recorded, per-project team avoids both.
 
 | Bundle | Skill | Roles | Use it to… |
 |---|---|---|---|
-| `it/delivery` | [`asf-project-kickoff`](it/delivery/skills/asf-project-kickoff/SKILL.md) | Delivery lead, engagement manager | turn a brief into a confirmed team of skills, by preset and phase |
+| `it/delivery` | [`asf-project-kickoff`](it/delivery/skills/asf-project-kickoff/SKILL.md) | Delivery lead, engagement manager | turn a brief, or an existing codebase, into a confirmed team of skills, by preset, goal and phase |
 | `it/delivery` | [`asf-project-setup`](it/delivery/skills/asf-project-setup/SKILL.md) | Developer-experience engineer, platform engineer | choose agent platform, tracker, MCP servers or CLIs, install policy, secrets |
 | `it/leadership` | [`asf-cto`](it/leadership/skills/asf-cto/SKILL.md) | CTO, tech lead | choose a stack, decide build vs buy, plan milestones, cost and risk |
 | `it/leadership` | [`asf-product-manager`](it/leadership/skills/asf-product-manager/SKILL.md) | Product manager, business analyst | write a PRD, user stories, MVP scope, metrics |
@@ -94,7 +116,8 @@ cd ~/code/my-app
 
 `--from` installs the skills listed in `.asf/project.md` and removes ones that
 are no longer in the team. `--phase` keeps only that phase's skills active and
-parks the rest in `.asf/bench/`. Run it again with the next phase when you move on.
+parks the rest in `.asf/bench/`. Run it again with the next phase when you move on. `--gitignore`
+adds `.asf/bench/` and the symlinked skill folders to the project's `.gitignore`.
 
 The script symlinks each skill folder, so `git pull` updates them. Use `--copy`
 to copy instead, and `--uninstall` to remove them.
