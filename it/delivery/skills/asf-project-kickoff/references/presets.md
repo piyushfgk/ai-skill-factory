@@ -65,6 +65,21 @@ Pick from these groups; most large projects need three or four of them, not all.
 | Delivery at scale | program manager, scrum master, release manager |
 | Global | localisation and i18n specialist |
 
+## Goal presets
+
+For an existing project, pick by the user's next goal first, then scale with
+the size presets above. Bold skills exist today.
+
+| Goal | Typical ask | Starting team |
+|---|---|---|
+| Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`** or backend *(planned)*), QA *(planned)* |
+| Add features | "Add payments", "build the admin area" | **`asf-product-manager`**, **`asf-software-architect`**, build skills, **`asf-ui-ux-designer`** if there is new UI |
+| Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, security *(planned)* |
+| Migrate or modernise | "Move to another framework or host", "split the monolith" | **`asf-cto`**, **`asf-software-architect`**, **`asf-devops-engineer`**, build skills |
+| Launch or grow | "Go live", "get more traffic" | **`asf-devops-engineer`**, **`asf-seo-specialist`**, **`asf-product-manager`** |
+
+An audit can come first for any goal; its gap list names the skills to add.
+
 ## Phases
 
 Each skill's `phase` metadata says when it is active. Only the current phase's

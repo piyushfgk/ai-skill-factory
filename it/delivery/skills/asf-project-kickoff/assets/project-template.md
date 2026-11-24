@@ -6,12 +6,20 @@ Agents: read it at the start of each session. Change it with
 
 ## Profile
 
+- Mode: <new | existing (adopted YYYY-MM-DD)>
+- Goal: <build from scratch | maintain | add features | audit | migrate | launch or grow>
 - What: <website | web app | mobile app | API | internal tool | data | mix>
 - Users: <who, rough count in year one>
 - Ambition and deadline: <prototype | MVP | production>, <date>
 - Sensitive areas: <payments, personal data, health, none>
 - Human roles: <roles people already cover, or none>
 - Guesses to confirm: <anything assumed>
+
+## Found in repo
+
+<Existing projects only: the found-vs-guessed table from adopt mode (stack,
+hosting, CI, tests, PWA, SEO, analytics, phase guess), and the project's own
+conventions: code style, branch naming, commit format, test commands.>
 
 ## Team
 
@@ -25,6 +33,10 @@ Current phase: <discover | design | build | launch | operate>
 
 Left out: <skill (reason)>
 Needed but not in the library yet: <role (who covers it meanwhile)>
+
+## Existing agent setup
+
+<Instruction files, non-asf skills (kept), MCP servers, tracker. "None" for a new project.>
 
 ## Web
 
