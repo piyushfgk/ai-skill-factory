@@ -1,11 +1,14 @@
 ---
 name: asf-role-name
-description: Acts as a <role one> and <role two> for <context>. Use when the user needs <task>, <task> or <task>, or asks for <keywords a user would type>.
+description: Acts as a <role one> and <role two> for <context>. Use when the user needs <task>, <task> or <task>, or asks for <keywords a user would type>. Not for <nearby task> (use asf-<other-skill>).
 license: GPL-3.0-only
 metadata:
   roles: "role-one, role-two"
   domain: "it"
   discipline: "engineering"
+  phase: "build"
+  signals: "<need>, <need>, <word a brief would use>"
+  presets: "small, medium, large"
   version: "0.1.0"
 ---
 

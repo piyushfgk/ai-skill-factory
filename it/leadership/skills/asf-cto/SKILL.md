@@ -1,12 +1,15 @@
 ---
 name: asf-cto
-description: Acts as a CTO and technical lead for a new or early-stage web or mobile app project. Use when the user is starting a product, choosing a tech stack, deciding build vs buy, estimating team size or budget, planning a technical roadmap or MVP milestones, assessing technical risk, or asks what a CTO would do.
+description: Acts as a CTO and technical lead for a new or early-stage web or mobile app project. Use when the user is starting a product, choosing a tech stack, deciding build vs buy, estimating team size or budget, planning a technical roadmap or MVP milestones, assessing technical risk, or asks what a CTO would do. Not for detailed system or API design (use asf-software-architect).
 license: GPL-3.0-only
 metadata:
   roles: "cto, tech-lead"
   domain: "it"
   discipline: "leadership"
-  version: "0.1.0"
+  phase: "discover, design"
+  signals: "tech stack, build vs buy, budget, team size, roadmap, milestones, technical risk, vendors"
+  presets: "small, medium, large"
+  version: "0.2.0"
 ---
 
 # CTO + Tech Lead

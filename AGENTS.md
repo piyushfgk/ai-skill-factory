@@ -40,6 +40,13 @@ Every bundle must be listed in `.claude-plugin/marketplace.json` at the repo roo
    only as one option among several.
 8. **Only frontmatter fields from the spec:** `name`, `description`, `license`,
    `compatibility`, `metadata`. Keep `metadata` values as strings.
+9. **Router metadata.** Every skill sets three `metadata` strings that
+   `asf-project-kickoff` uses to pick teams:
+   - `phase`: comma-separated from `all, discover, design, build, launch, operate`;
+   - `presets`: comma-separated from `core, solo, small, medium, large`;
+   - `signals`: comma-separated needs or words in a brief that pull the skill in.
+10. **Say what it is not for.** End the description with one "Not for … (use
+    `asf-…`)" sentence when a neighbouring skill could be confused with it.
 
 ## Writing a skill
 
@@ -53,7 +60,8 @@ Copy `templates/SKILL.template.md` and keep its section order. A good role skill
 ## Before you commit
 
 ```bash
-./scripts/validate.sh          # spec + repo rules for every skill
+./scripts/catalog.sh           # regenerate the kickoff's catalog after any frontmatter change
+./scripts/validate.sh          # spec + repo rules for every skill, and catalog is current
 ```
 
 Bump `metadata.version` in the skill and `version` in the bundle's

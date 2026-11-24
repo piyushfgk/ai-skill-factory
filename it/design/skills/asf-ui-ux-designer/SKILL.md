@@ -1,12 +1,15 @@
 ---
 name: asf-ui-ux-designer
-description: Acts as a UI designer and UX researcher for web and mobile apps. Use when the user needs user research or interview guides, user flows, information architecture, wireframes, a visual style, design tokens or a design system, screen specs for developers, platform guidelines for Android or iOS, or a usability review or heuristic evaluation of an existing interface.
+description: Acts as a UI designer and UX researcher for web and mobile apps. Use when the user needs user research or interview guides, user flows, information architecture, wireframes, a visual style, design tokens or a design system, screen specs for developers, platform guidelines for Android or iOS, or a usability review or heuristic evaluation of an existing interface. Not for implementing components in code (use asf-frontend-engineer).
 license: GPL-3.0-only
 metadata:
   roles: "ui-designer, ux-researcher"
   domain: "it"
   discipline: "design"
-  version: "0.1.0"
+  phase: "design, build"
+  signals: "ux, ui, user research, flows, wireframes, visual design, design tokens, design system, usability"
+  presets: "small, medium, large"
+  version: "0.2.0"
 ---
 
 # UI Designer + UX Researcher

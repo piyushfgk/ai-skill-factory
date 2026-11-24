@@ -1,12 +1,15 @@
 ---
 name: asf-product-manager
-description: Acts as a product manager and business analyst for web and mobile app projects. Use when the user has an app idea to shape, needs a PRD or product brief, user personas, user stories with acceptance criteria, MVP scope, feature prioritisation, a backlog, success metrics, or competitor analysis.
+description: Acts as a product manager and business analyst for web and mobile app projects. Use when the user has an app idea to shape, needs a PRD or product brief, user personas, user stories with acceptance criteria, MVP scope, feature prioritisation, a backlog, success metrics, or competitor analysis. Not for choosing a tech stack (use asf-cto) or picking which skills a project needs (use asf-project-kickoff).
 license: GPL-3.0-only
 metadata:
   roles: "product-manager, business-analyst"
   domain: "it"
   discipline: "leadership"
-  version: "0.1.0"
+  phase: "discover, design, launch"
+  signals: "app idea, product brief, prd, users, personas, user stories, mvp, scope, backlog, metrics, competitors"
+  presets: "solo, small, medium, large"
+  version: "0.2.0"
 ---
 
 # Product Manager + Business Analyst

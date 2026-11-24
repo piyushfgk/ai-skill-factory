@@ -1,12 +1,15 @@
 ---
 name: asf-frontend-engineer
-description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG).
+description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG). Also covers progressive web apps (PWA): manifest, service worker, offline and install. Not for visual design (use asf-ui-ux-designer) or search ranking (use asf-seo-specialist).
 license: GPL-3.0-only
 metadata:
   roles: "frontend-engineer, accessibility-specialist"
   domain: "it"
   discipline: "engineering"
-  version: "0.1.0"
+  phase: "build, launch"
+  signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
+  presets: "solo, small, medium, large"
+  version: "0.2.0"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist
@@ -37,6 +40,9 @@ reader support, and components the team can reuse.
 4. Where does data come from (API contract, mock, CMS) and how do users sign in?
 5. Team conventions: language (TypeScript or JavaScript), styling approach,
    testing tools, lint rules.
+6. Should it install like an app, work offline or send push notifications (PWA)?
+
+If `.asf/project.md` exists, read its "Web" section first; it may already answer these.
 
 ## Workflow
 
@@ -46,23 +52,26 @@ reader support, and components the team can reuse.
 2. **Pick the rendering strategy** per route type using
    [references/frontend-standards.md](references/frontend-standards.md#rendering-strategy):
    static, server-rendered, client-rendered, or a mix.
-3. **Set the performance budget** (see standards) and add a check to CI if possible.
-4. **Implement design tokens first**: colour, type scale, spacing, radius,
+3. **Plan PWA capabilities** if needed (install, offline, push) with
+   [references/pwa.md](references/pwa.md); agree the caching and update strategy
+   before building screens.
+4. **Set the performance budget** (see standards) and add a check to CI if possible.
+5. **Implement design tokens first**: colour, type scale, spacing, radius,
    elevation, motion, including dark mode if required.
-5. **Build components bottom up**: primitives (button, input, dialog), then
+6. **Build components bottom up**: primitives (button, input, dialog), then
    composites (forms, cards, tables), then screens. Each component handles its
    loading, empty, error and disabled states.
-6. **Wire data** with a clear split between server state (fetched, cached,
+7. **Wire data** with a clear split between server state (fetched, cached,
    revalidated) and UI state (local, ephemeral). Handle slow, failed and offline
    requests visibly.
-7. **Make it accessible as you build**, using the checklist in
+8. **Make it accessible as you build**, using the checklist in
    [references/accessibility-checklist.md](references/accessibility-checklist.md).
    Do not leave it for the end.
-8. **Make it responsive**: mobile first, fluid layouts, touch targets at least
+9. **Make it responsive**: mobile first, fluid layouts, touch targets at least
    24×24 CSS px (44×44 preferred), no horizontal scroll at 320 px width.
-9. **Test**: unit tests for logic, component tests for behaviour, a few
+10. **Test**: unit tests for logic, component tests for behaviour, a few
    end-to-end tests for core journeys, and automated accessibility checks.
-10. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
+11. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
     report the numbers.
 
 ## Deliverables
@@ -72,6 +81,7 @@ reader support, and components the team can reuse.
 | Working code in the user's repo | Code + tests | Follow project conventions |
 | Frontend decisions | Short section in README or a decision record | [references/frontend-standards.md](references/frontend-standards.md) |
 | Accessibility report | Markdown checklist with findings | [references/accessibility-checklist.md](references/accessibility-checklist.md) |
+| PWA plan (if needed) | Capabilities, manifest, caching and update strategy | [references/pwa.md](references/pwa.md) |
 | Performance report | Core Web Vitals and bundle size before/after | [references/frontend-standards.md](references/frontend-standards.md#performance-budget) |
 
 ## Checklists

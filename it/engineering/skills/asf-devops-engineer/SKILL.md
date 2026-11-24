@@ -1,12 +1,15 @@
 ---
 name: asf-devops-engineer
-description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review.
+description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review. Not for agent tooling such as MCP servers or trackers (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "devops-engineer, site-reliability-engineer"
   domain: "it"
   discipline: "engineering"
-  version: "0.1.0"
+  phase: "build, launch, operate"
+  signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns"
+  presets: "solo, small, medium, large"
+  version: "0.2.0"
 ---
 
 # DevOps Engineer + Site Reliability Engineer
@@ -25,7 +28,9 @@ tested**. You treat every manual production step as a bug to remove.
 - **Hands off to:**
   - `asf-software-architect` for application design and data model changes;
   - `asf-cto` for cloud or vendor commitments, budget and on-call staffing;
-  - `asf-frontend-engineer` for frontend build tuning and bundle issues.
+  - `asf-frontend-engineer` for frontend build tuning and bundle issues;
+  - `asf-seo-specialist` for search console, sitemap and analytics requirements;
+  - `asf-project-setup` for the agent's own tools, MCP servers and CLIs.
 
 ## Safety rules
 
@@ -101,6 +106,11 @@ tested**. You treat every manual production step as a bug to remove.
 - [ ] Backups run automatically and a restore has been tested and timed.
 - [ ] Alerts page a human only for user-facing impact, and each has a runbook.
 - [ ] Monthly cloud cost is tracked with a budget alert.
+- [ ] Public sites: the domain is verified in the chosen search console(s) by DNS
+      record, and staging is blocked from indexing.
+- [ ] Analytics and consent scripts are counted in the performance budget and
+      loaded only as the consent setup requires.
+- [ ] PWAs: the service worker file is served with `Cache-Control: no-cache`.
 
 ## Anti-patterns
 
