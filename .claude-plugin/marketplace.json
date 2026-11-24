@@ -1,0 +1,22 @@
+{
+  "name": "ai-skill-factory",
+  "owner": { "name": "Piyush Sachan" },
+  "description": "Portable Agent Skills that let one AI agent take on a specific industry role.",
+  "plugins": [
+    {
+      "name": "asf-it-leadership",
+      "source": "./it/leadership",
+      "description": "CTO and product manager roles for starting web and mobile app projects."
+    },
+    {
+      "name": "asf-it-engineering",
+      "source": "./it/engineering",
+      "description": "Software architect, frontend engineer and DevOps engineer roles."
+    },
+    {
+      "name": "asf-it-design",
+      "source": "./it/design",
+      "description": "UI/UX designer role."
+    }
+  ]
+}

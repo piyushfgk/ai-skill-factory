@@ -1,0 +1,15 @@
+{
+  "name": "asf-it-design",
+  "version": "0.1.0",
+  "description": "UI/UX designer role.",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "agent-skills",
+    "roles",
+    "it",
+    "design"
+  ],
+  "author": {
+    "name": "Piyush Sachan"
+  }
+}
