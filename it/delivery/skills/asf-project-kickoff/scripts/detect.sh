@@ -38,7 +38,11 @@ echo
 
 # Layout
 echo "## Top level"
-ls -1Ap 2>/dev/null | grep -vE '^(\.git/|node_modules/|\.DS_Store)$' | head -n 40 | join
+for e in * .[!.]*; do
+  [[ -e "$e" ]] || continue
+  case "$e" in .git|node_modules|.DS_Store) continue ;; esac
+  if [[ -d "$e" ]]; then echo "$e/"; else echo "$e"; fi
+done | head -n 40 | join
 echo
 
 # Stack
@@ -89,7 +93,11 @@ line "instruction files:" "$(f 2 -type f \( -name AGENTS.md -o -name CLAUDE.md -
 line "mcp config:" "$(f 2 -type f \( -name .mcp.json -o -path './.gemini/settings.json' -o -path './.codex/config.toml' -o -path './.vscode/mcp.json' \) | join)"
 for sd in .claude/skills .agents/skills .gemini/skills; do
   [[ -d "$sd" ]] || continue
-  asf=$(ls -1 "$sd" 2>/dev/null | grep '^asf-' | join); other=$(ls -1 "$sd" 2>/dev/null | grep -v '^asf-' | join)
+  asf=""; other=""
+  for s in "$sd"/*; do
+    [[ -e "$s" || -L "$s" ]] || continue
+    n="${s##*/}"; if [[ "$n" == asf-* ]]; then asf+="${asf:+, }$n"; else other+="${other:+, }$n"; fi
+  done
   line "$sd:" "asf: ${asf:-none}; other: ${other:-none}"
 done
 line "tracker hints:" "$(f 3 \( -path './.github/ISSUE_TEMPLATE' -o -path './.gitlab/issue_templates' -o -name '.jira*' -o -name 'TASKS.md' -o -name 'TODO.md' \) | join)"

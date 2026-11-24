@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Install AI Skill Factory skills for Claude Code, Codex CLI and Gemini CLI.
+# Install AI Skill Factory skills for Claude Code, Codex CLI, Gemini CLI and Hermes Agent.
 #
 # Usage: scripts/install.sh [options] [skill-name ...]
 #   (no skill names)     install every skill in the repo
 #   --agent claude       only ~/.claude/skills          (Claude Code)
 #   --agent agents       only ~/.agents/skills          (Codex CLI, Gemini CLI)
-#   --agent all          both (default)
+#   --agent hermes       only ~/.hermes/skills          (Hermes Agent)
+#   --agent all          claude + agents (default). Hermes also reads a project's
+#                        .agents/skills once you run `hermes skills trust`
 #   --project DIR        install into DIR/.claude/skills and DIR/.agents/skills instead of $HOME
 #   --from FILE          install the team listed in FILE (an .asf/project.md written by
 #                        asf-project-kickoff); with --project, skills no longer in the team
@@ -17,18 +19,24 @@
 #                        to the project's .gitignore (symlinks point into one person's clone)
 #   --copy               copy files instead of symlinking (symlinks follow `git pull`)
 #   --uninstall          remove the named (or all) asf-* skills installed from this repo
+#   --dry-run            print what would change, change nothing
 #   --list               list available skills and exit
 #   -h, --help           show this help
 #
 # Example (from a project root):
 #   ~/ai-skill-factory/scripts/install.sh --project . --from .asf/project.md --phase build --gitignore
+#
+# Safety: the installer only replaces or removes what it created itself: symlinks that
+# point into this repo, and copies that carry its .asf-installed marker. Anything else
+# with the same name is left alone and reported as "kept".
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 AGENT="all"; BASE="$HOME"; MODE="link"; ACTION="install"; WANT=()
-FROM=""; PHASE=""; PROJECT=""; GITIGNORE=""
+FROM=""; PHASE=""; PROJECT=""; GITIGNORE=""; DRY=""
+MARKER=".asf-installed"
 
-usage() { sed -n '2,26p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,34p' "$0" | sed 's/^# \{0,1\}//'; }
 
 # Value of a one-line frontmatter key (top level or under metadata).
 fm() { # file key
@@ -62,6 +70,7 @@ while [[ $# -gt 0 ]]; do
     --gitignore) GITIGNORE=1; shift ;;
     --copy)      MODE="copy"; shift ;;
     --uninstall) ACTION="uninstall"; shift ;;
+    --dry-run)   DRY=1; shift ;;
     --list)      ACTION="list"; shift ;;
     -h|--help)   usage; exit 0 ;;
     -*)          echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
@@ -83,13 +92,14 @@ BENCH="$BASE/.asf/bench"
 case "$AGENT" in
   claude) TARGETS=("$BASE/.claude/skills") ;;
   agents) TARGETS=("$BASE/.agents/skills") ;;
+  hermes) TARGETS=("$BASE/.hermes/skills") ;;
   all)    TARGETS=("$BASE/.claude/skills" "$BASE/.agents/skills") ;;
-  *) echo "--agent must be claude, agents or all" >&2; exit 2 ;;
+  *) echo "--agent must be claude, agents, hermes or all" >&2; exit 2 ;;
 esac
 
 # Every directory that holds a SKILL.md under */skills/ is a skill.
 mapfile -t SKILL_DIRS < <(find "$REPO_ROOT" -path "$REPO_ROOT/.git" -prune -o \
-  -path '*/skills/*/SKILL.md' -print | xargs -r -n1 dirname | sort)
+  -path '*/skills/*/SKILL.md' -exec dirname {} \; | sort)
 
 if [[ "$ACTION" == "list" ]]; then
   for d in "${SKILL_DIRS[@]}"; do printf '%-28s %s\n' "$(basename "$d")" "${d#"$REPO_ROOT"/}"; done
@@ -111,18 +121,45 @@ else
   done
 fi
 
-place() { # src-dir dest
-  local d="$1" dest="$2"
-  if [[ -e "$dest" && ! -L "$dest" ]]; then
-    echo "skip     $dest (exists and is not a symlink; remove it or use --uninstall first)" >&2
-    return
+# True if DEST was created by this installer: a symlink into this repo, or a copy with our marker.
+owned() { # dest
+  if [[ -L "$1" ]]; then
+    local target; target="$(readlink "$1")"
+    [[ "$target" == "$REPO_ROOT"/* ]]
+  else
+    [[ -d "$1" && -f "$1/$MARKER" ]]
   fi
-  rm -f "$dest"
-  if [[ "$MODE" == "copy" ]]; then cp -R "$d" "$dest"; echo "copied   $dest"
-  else ln -s "$d" "$dest"; echo "linked   $dest"; fi
+}
+say() { # verb path
+  if [[ -n "$DRY" ]]; then printf 'would %-8s %s\n' "$1" "$2"; else printf '%-8s %s\n' "$1" "$2"; fi
+}
+ensure_dir() { [[ -n "$DRY" ]] || mkdir -p "$1"; }
+
+place() { # src-dir dest [verb]
+  local d="$1" dest="$2" verb="${3:-}"
+  if [[ -e "$dest" || -L "$dest" ]]; then
+    if ! owned "$dest"; then
+      echo "kept     $dest (not created by this installer; remove or rename it yourself)" >&2
+      return
+    fi
+    [[ -n "$DRY" ]] || rm -rf "$dest"
+  fi
+  if [[ "$MODE" == "copy" ]]; then
+    say "${verb:-copy}" "$dest"
+    [[ -n "$DRY" ]] || { cp -R "$d" "$dest"; printf 'Installed by AI Skill Factory scripts/install.sh. Safe to delete with --uninstall.\n' > "$dest/$MARKER"; }
+  else
+    say "${verb:-link}" "$dest"
+    [[ -n "$DRY" ]] || ln -s "$d" "$dest"
+  fi
 }
 unplace() { # dest
-  if [[ -L "$1" || -d "$1" ]]; then rm -rf "$1"; echo "removed  $1"; fi
+  [[ -e "$1" || -L "$1" ]] || return 0
+  if ! owned "$1"; then
+    echo "kept     $1 (not created by this installer)" >&2
+    return 0
+  fi
+  say remove "$1"
+  [[ -n "$DRY" ]] || rm -rf "$1"
 }
 
 for d in "${selected[@]}"; do
@@ -133,11 +170,11 @@ for d in "${selected[@]}"; do
     continue
   fi
   if in_phase "$d" "$PHASE"; then
-    for t in "${TARGETS[@]}"; do mkdir -p "$t"; place "$d" "$t/$name"; done
+    for t in "${TARGETS[@]}"; do ensure_dir "$t"; place "$d" "$t/$name"; done
     unplace "$BENCH/$name" >/dev/null
   else
-    for t in "${TARGETS[@]}"; do [[ -L "$t/$name" || -d "$t/$name" ]] && unplace "$t/$name"; done
-    mkdir -p "$BENCH"; place "$d" "$BENCH/$name" | sed 's/^linked  /benched /; s/^copied  /benched /'
+    for t in "${TARGETS[@]}"; do unplace "$t/$name"; done
+    ensure_dir "$BENCH"; place "$d" "$BENCH/$name" bench
   fi
 done
 
@@ -158,21 +195,24 @@ if [[ "$ACTION" == "install" && -n "$GITIGNORE" ]]; then
   if [[ -z "$PROJECT" ]]; then
     echo "--gitignore only applies with --project; skipped" >&2
   else
-    gi="$BASE/.gitignore"; touch "$gi"
-    entries=(".asf/bench/")
+    gi="$BASE/.gitignore"; [[ -n "$DRY" ]] || touch "$gi"
+    entries=(".asf/bench/" ".asf/*.local.md")
     if [[ "$MODE" == "link" ]]; then
       for t in "${TARGETS[@]}"; do entries+=("${t#"$BASE"/}/asf-*"); done
     fi
     for e in "${entries[@]}"; do
-      if ! grep -qxF "$e" "$gi"; then
+      if ! grep -qxF "$e" "$gi" 2>/dev/null; then
+        say ignore "$e"
+        [[ -n "$DRY" ]] && continue
         grep -qxF "# AI Skill Factory (scripts/install.sh --gitignore)" "$gi" || \
           printf '\n# AI Skill Factory (scripts/install.sh --gitignore)\n' >> "$gi"
-        echo "$e" >> "$gi"; echo "ignored  $e"
+        echo "$e" >> "$gi"
       fi
     done
   fi
 fi
 
+if [[ -n "$DRY" ]]; then echo "Dry run: nothing was changed."; exit 0; fi
 if [[ "$ACTION" == "install" ]]; then
   [[ -n "$PHASE" ]] && echo "Phase '$PHASE': skills for other phases are parked in $BENCH."
   echo "Done. Restart your agent (or run /skills reload in Gemini CLI) to pick up new skills."

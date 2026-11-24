@@ -1,6 +1,6 @@
 ---
 name: asf-project-kickoff
-description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, wants to add or install skills in an existing project or repo (adopt mode: reads the codebase first and picks the team by goal: maintain, add features, audit, migrate or launch), shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
+description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, wants to add or install skills in an existing project or repo (adopt mode, which reads the codebase first and picks the team by goal such as maintain, add features, audit, migrate or launch), shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "delivery-lead, engagement-manager"
@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal"
   presets: "core"
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Delivery Lead + Engagement Manager

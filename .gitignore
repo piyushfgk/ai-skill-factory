@@ -1,2 +1,5 @@
 .DS_Store
 *.swp
+# Site-specific details never go in this public repo
+*.local.md
+.asf/

@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform"
   presets: "core"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Developer-Experience Engineer + Platform Engineer
@@ -37,6 +37,9 @@ job, and a setup any teammate (or another agent) can reproduce from the repo**.
   write access to a code host or tracker.
 - Never write a secret into the repo, the instruction file, `.asf/project.md`
   or a committed MCP config. Reference secrets by environment variable name.
+- Keep site-specific details (hosts, addresses, accounts, access routes,
+  approvers, personal tools) in the git-ignored site profile, never in
+  `.asf/project.md` or any committed file.
 - Prefer read-only tokens and the narrowest scopes; widen only when a task needs it.
 
 ## Ask before starting
@@ -63,32 +66,40 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
    real gaps: a missing tracker convention, a globally enabled MCP server only
    this project uses, an over-broad token, a tool nobody pinned. Never replace a
    working tracker, CI or instruction file unasked.
-1. **Pick the platform setup** with
+1. **Read or create the site profile.** Look for `~/.asf/site.local.md`
+   (machine-wide) and `.asf/site.local.md` (this project; it wins). If neither
+   exists and the work touches hosts, accounts or more than one workspace,
+   offer to create one from
+   [assets/site-profile-template.md](assets/site-profile-template.md). It holds
+   workspaces, hosts with how to reach them, accounts and where their secrets
+   live (names only), tools on the machine, and who approves which safety tier.
+   Make sure `*.local.md` is git-ignored.
+2. **Pick the platform setup** with
    [references/platforms.md](references/platforms.md): where skills, the
    instruction file and MCP config live for the user's agent, and how to share
    one setup across several agents.
-2. **Pick the tracker** with the comparison in
+3. **Pick the tracker** with the comparison in
    [references/integrations.md](references/integrations.md#progress-tracking).
    Agree on one convention: task id in branch names and commit messages, and
    when the agent updates status.
-3. **Choose a route per app**, cheapest first, using
+4. **Choose a route per app**, cheapest first, using
    [references/integrations.md](references/integrations.md#choosing-a-route):
    1. an existing official CLI (no standing context cost);
    2. an MCP server, enabled for this project only and trimmed to the tools used;
    3. a small custom CLI or script wrapping only the calls the project needs.
-4. **Trim always-loaded context**: keep the instruction file short and point
+5. **Trim always-loaded context**: keep the instruction file short and point
    to `.asf/project.md`; add ignore rules for build output, lockfiles,
    generated code and large data; turn off MCP servers and skills not in use.
    See [references/integrations.md](references/integrations.md#token-budget).
-5. **Set the install policy**: list the tools the project needs (runtime,
+6. **Set the install policy**: list the tools the project needs (runtime,
    package manager, linters, CLIs), how each is installed, and whether the
    agent may install them. Prefer pinned versions and a dev container or
    setup script so humans and agents get the same tools.
-6. **Set up secrets**: environment variables loaded from a local, ignored file,
+7. **Set up secrets**: environment variables loaded from a local, ignored file,
    the platform's secret store, or a secrets manager. Document names, not values.
-7. **Write it down**: fill the "Setup" section of `.asf/project.md` and give
+8. **Write it down**: fill the "Setup" section of `.asf/project.md` and give
    the user a short checklist of commands to run, or run them after asking.
-8. **Verify**: ask the agent to do one small real task through each integration
+9. **Verify**: ask the agent to do one small real task through each integration
    (read an issue, open a draft pull request, query a read-only endpoint).
 
 ## Deliverables
@@ -98,7 +109,8 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 | Setup record | "Setup" section of `.asf/project.md` | [references/integrations.md](references/integrations.md#setup-record) |
 | Platform config | Instruction file, MCP config, skills folder, ignore files | [references/platforms.md](references/platforms.md) |
 | Custom CLI (when needed) | Script in `scripts/` or `.asf/tools/` with `--help` | [references/integrations.md](references/integrations.md#custom-cli) |
-| Setup checklist | Commands per platform, in order | Step 7 above |
+| Site profile (local, git-ignored) | `~/.asf/site.local.md` | [assets/site-profile-template.md](assets/site-profile-template.md) |
+| Setup checklist | Commands per platform, in order | Step 8 above |
 
 ## Checklists
 

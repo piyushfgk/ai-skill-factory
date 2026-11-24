@@ -47,6 +47,16 @@ Every bundle must be listed in `.claude-plugin/marketplace.json` at the repo roo
    - `signals`: comma-separated needs or words in a brief that pull the skill in.
 10. **Say what it is not for.** End the description with one "Not for … (use
     `asf-…`)" sentence when a neighbouring skill could be confused with it.
+11. **Safety tiers.** A skill that runs commands or changes systems has a
+    "Safety tiers" section (read-only, change, destructive) as in the template.
+12. **Nothing site-specific.** This repo is public. No real IP addresses,
+    hostnames, email addresses, home-directory or key paths, account names or
+    tokens. Use `192.0.2.x`, `198.51.100.x`, `203.0.113.x`, `example.com` and
+    `<placeholders>`. A person's own hosts, accounts, tools and approvals go in
+    their git-ignored site profile (`~/.asf/site.local.md`); skills tell the
+    agent to read it. `validate.sh` scans for these and fails.
+13. **Valid YAML.** Frontmatter must parse as YAML: no `: ` inside an unquoted
+    value (rephrase, or quote the value).
 
 ## Writing a skill
 
@@ -61,7 +71,8 @@ Copy `templates/SKILL.template.md` and keep its section order. A good role skill
 
 ```bash
 ./scripts/catalog.sh           # regenerate the kickoff's catalog after any frontmatter change
-./scripts/validate.sh          # spec + repo rules for every skill, and catalog is current
+./scripts/validate.sh          # spec + repo rules, catalog, content scan, YAML
+shellcheck scripts/*.sh        # CI also runs shellcheck and gitleaks
 ```
 
 Bump `metadata.version` in the skill and `version` in the bundle's
