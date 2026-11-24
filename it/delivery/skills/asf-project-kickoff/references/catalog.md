@@ -12,7 +12,7 @@ Phases: `all`, `discover`, `design`, `build`, `launch`, `operate`.
 | Skill | Bundle | Roles | Phase | Presets | Signals |
 |---|---|---|---|---|---|
 | `asf-project-kickoff` | `it/delivery` | delivery-lead, engagement-manager | all | core | new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal |
-| `asf-project-setup` | `it/delivery` | developer-experience-engineer, platform-engineer | all | core | agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform |
+| `asf-project-setup` | `it/delivery` | developer-experience-engineer, platform-engineer | all | core | agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform |
 | `asf-ui-ux-designer` | `it/design` | ui-designer, ux-researcher | design, build | small, medium, large | ux, ui, user research, flows, wireframes, visual design, design tokens, design system, usability |
 | `asf-devops-engineer` | `it/engineering` | devops-engineer, site-reliability-engineer | build, launch, operate | solo, small, medium, large | hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns |
 | `asf-frontend-engineer` | `it/engineering` | frontend-engineer, accessibility-specialist | build, launch | solo, small, medium, large | website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline |
