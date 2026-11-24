@@ -46,7 +46,7 @@ coverage (larger team).
 | Skill | Why |
 |---|---|
 | `asf-software-architect` | Boundaries, data model and API contracts across several parts |
-| `asf-security-engineer` *(planned)* | Payments, personal data, threat model |
+| `asf-security-engineer` | Payments, personal data, threat model |
 | `asf-mobile-engineer` *(planned)* | Android and iOS apps |
 | `asf-data-analyst` *(planned)* | Metrics, dashboards, experiments |
 | `asf-technical-writer` *(planned)* | User docs, API docs, release notes |
@@ -57,6 +57,7 @@ Pick from these groups; most large projects need three or four of them, not all.
 
 | Group | Skills *(all planned unless noted)* |
 |---|---|
+| Servers and network | `asf-system-administrator` (available), `asf-network-engineer` (available) |
 | Reliability and scale | SRE split from DevOps, performance engineer, database administrator |
 | Data and ML | data engineer, ML engineer, analytics engineer |
 | Compliance and trust | compliance and privacy officer, legal reviewer, accessibility auditor |
@@ -74,7 +75,7 @@ the size presets above. Bold skills exist today.
 |---|---|---|
 | Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`** or backend *(planned)*), QA *(planned)* |
 | Add features | "Add payments", "build the admin area" | **`asf-product-manager`**, **`asf-software-architect`**, build skills, **`asf-ui-ux-designer`** if there is new UI |
-| Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, security *(planned)* |
+| Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, **`asf-security-engineer`** review |
 | Migrate or modernise | "Move to another framework or host", "split the monolith" | **`asf-cto`**, **`asf-software-architect`**, **`asf-devops-engineer`**, build skills |
 | Launch or grow | "Go live", "get more traffic" | **`asf-devops-engineer`**, **`asf-seo-specialist`**, **`asf-product-manager`** |
 

@@ -66,6 +66,9 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/engineering` | [`asf-frontend-engineer`](it/engineering/skills/asf-frontend-engineer/SKILL.md) | Frontend engineer, accessibility specialist | build fast, accessible, responsive UI |
 | `it/engineering` | [`asf-devops-engineer`](it/engineering/skills/asf-devops-engineer/SKILL.md) | DevOps engineer, SRE | CI/CD, infra as code, hosting, monitoring, releases |
 | `it/design` | [`asf-ui-ux-designer`](it/design/skills/asf-ui-ux-designer/SKILL.md) | UI designer, UX researcher | research, flows, wireframes, design system |
+| `it/engineering` | [`asf-security-engineer`](it/engineering/skills/asf-security-engineer/SKILL.md) | Application security engineer, security analyst | threat models, audits, hardening, findings with evidence, compliance map |
+| `it/operations` | [`asf-system-administrator`](it/operations/skills/asf-system-administrator/SKILL.md) | Systems administrator, remote access engineer | reach hosts the right way, run services, patch, baseline and roll back |
+| `it/operations` | [`asf-network-engineer`](it/operations/skills/asf-network-engineer/SKILL.md) | Network engineer, DNS administrator | DNS and domain moves, split DNS, reverse proxy, TLS, tunnels, exposure |
 | `it/growth` | [`asf-seo-specialist`](it/growth/skills/asf-seo-specialist/SKILL.md) | SEO specialist, web analytics specialist | technical SEO, keywords, search console, analytics and consent |
 
 The full catalog, with each skill's phase, presets and signals, is in
@@ -90,6 +93,7 @@ it, run the roles roughly in this order: `asf-product-manager` → `asf-cto` →
 /plugin install asf-it-engineering@ai-skill-factory
 /plugin install asf-it-design@ai-skill-factory
 /plugin install asf-it-growth@ai-skill-factory
+/plugin install asf-it-operations@ai-skill-factory
 ```
 
 Plugins install whole bundles. To install only the skills your project's team

@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal"
   presets: "core"
-  version: "0.2.1"
+  version: "0.2.2"
 ---
 
 # Delivery Lead + Engagement Manager
