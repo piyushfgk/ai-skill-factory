@@ -47,7 +47,12 @@ coverage (larger team).
 |---|---|
 | `asf-software-architect` | Boundaries, data model and API contracts across several parts |
 | `asf-security-engineer` | Payments, personal data, threat model |
-| `asf-mobile-engineer` *(planned)* | Android and iOS apps |
+| `asf-mobile-engineer` | Android and iOS apps |
+| `asf-integration-engineer` | Webhooks, email sending, CRM, payments and messaging connections |
+| `asf-database-administrator` | Backups, restores, migrations and query tuning once data matters |
+| `asf-cloud-engineer` | Cloud accounts, infrastructure as code and cost, when a cloud provider is used |
+| `asf-ai-engineer` | Only if the product has AI features (chat, search, extraction) |
+| `asf-agent-orchestrator` | When several AI worker agents build in parallel |
 | `asf-data-analyst` *(planned)* | Metrics, dashboards, experiments |
 | `asf-technical-writer` *(planned)* | User docs, API docs, release notes |
 
@@ -58,12 +63,12 @@ Pick from these groups; most large projects need three or four of them, not all.
 | Group | Skills *(all planned unless noted)* |
 |---|---|
 | Servers and network | `asf-system-administrator` (available), `asf-network-engineer` (available) |
-| Reliability and scale | SRE split from DevOps, performance engineer, database administrator |
-| Data and ML | data engineer, ML engineer, analytics engineer |
+| Reliability and scale | SRE split from DevOps, performance engineer, `asf-database-administrator` (available), `asf-cloud-engineer` (available) |
+| Data and ML | data engineer, ML engineer, analytics engineer, `asf-ai-engineer` (available) |
 | Compliance and trust | compliance and privacy officer, legal reviewer, accessibility auditor |
 | Growth | marketing strategist, content strategist, `asf-seo-specialist` (available), growth analyst |
 | Customers | customer support lead, customer success, sales engineer |
-| Delivery at scale | program manager, scrum master, release manager |
+| Delivery at scale | `asf-agent-orchestrator` (available), program manager, scrum master, release manager |
 | Global | localisation and i18n specialist |
 
 ## Goal presets
