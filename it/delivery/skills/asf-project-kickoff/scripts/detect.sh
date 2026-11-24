@@ -67,7 +67,9 @@ echo "## Build, deploy, operate"
 line "ci:" "$(f 3 -type f \( -path './.github/workflows/*' -o -name .gitlab-ci.yml -o -name Jenkinsfile -o -name azure-pipelines.yml -o -path './.circleci/*' -o -name bitbucket-pipelines.yml \) | join)"
 line "containers:" "$(f 3 -type f \( -name 'Dockerfile*' -o -name 'docker-compose*.y*ml' -o -name 'compose*.y*ml' \) | join)"
 line "infra as code:" "$(f 3 \( -name '*.tf' -o -name 'Pulumi.yaml' -o -name 'serverless.y*ml' -o -name 'cdk.json' -o -name 'Chart.yaml' -o -name 'ansible.cfg' \) -type f | join)"
-line "platform config:" "$(f 2 -type f \( -name vercel.json -o -name netlify.toml -o -name fly.toml -o -name render.yaml -o -name app.yaml -o -name Procfile -o -name 'firebase.json' -o -name wrangler.toml \) | join)"
+line "platform config:" "$(f 2 -type f \( -name vercel.json -o -name netlify.toml -o -name fly.toml -o -name render.yaml -o -name app.yaml -o -name Procfile -o -name 'firebase.json' -o -name 'wrangler.toml' -o -name 'wrangler.json*' -o -name eas.json \) | join)"
+line "process managers:" "$(f 3 -type f \( -name 'ecosystem.config.*' -o -name 'pm2*.json' -o -name 'supervisord.conf' -o -name '*.service' -o -name '*.timer' \) | join)"
+line "powershell:" "$(f 3 -type f \( -name '*.ps1' -o -name '*.psm1' \) | wc -l | tr -d ' ') scripts"
 line "release tags:" "$( (git tag 2>/dev/null | wc -l | tr -d ' ') || echo 0)"
 line "monitoring hints:" "$( (grep -rIlE --exclude=detect.sh --exclude-dir={.git,node_modules,vendor,dist,build,.asf,.claude,.agents,.gemini} -m1 'sentry|bugsnag|rollbar|opentelemetry|newrelic|datadog' --include='*.json' --include='*.toml' --include='*.txt' --include='*.y*ml' . 2>/dev/null | sed 's|^\./||' | head -n 5 | join) || true)"
 echo
@@ -113,7 +115,7 @@ ws=$(f 2 -type d \( -name apps -o -name packages -o -name services \) | join)
 
 # Phase hint (a guess for the user to confirm)
 tags=$(git tag 2>/dev/null | wc -l | tr -d ' ')
-deploy=$(f 3 -type f \( -name vercel.json -o -name netlify.toml -o -name fly.toml -o -name render.yaml -o -name app.yaml -o -name Procfile -o -name '*.tf' -o -name 'Dockerfile*' -o -name 'serverless.y*ml' \) | head -n 1)
+deploy=$(f 3 -type f \( -name vercel.json -o -name netlify.toml -o -name fly.toml -o -name render.yaml -o -name app.yaml -o -name Procfile -o -name '*.tf' -o -name 'Dockerfile*' -o -name 'serverless.y*ml' -o -name 'wrangler.toml' -o -name eas.json -o -name 'ecosystem.config.*' -o -name '*.service' \) | head -n 1)
 if (( src_count == 0 )); then phase="design"
 elif [[ -z "$deploy" ]]; then phase="build"
 elif (( tags == 0 )); then phase="launch"

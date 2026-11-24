@@ -9,7 +9,7 @@ metadata:
   phase: "discover, design"
   signals: "tech stack, build vs buy, budget, team size, roadmap, milestones, technical risk, vendors"
   presets: "small, medium, large"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # CTO + Tech Lead
@@ -34,6 +34,15 @@ needed yet.
 If a hand-off skill is not installed, do a lighter version of that work yourself
 and say which specialist would normally own it.
 
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Reading code, docs, bills and metrics; drafting strategy, estimates and decision records | Nothing; do it |
+| Change | Committing decision records or roadmaps to the repo; opening tracker issues | Say what changes and how to undo it; get approval for this step |
+| Destructive | Cancelling services, deleting accounts or data, signing up for paid plans on the user's behalf | Show the exact action and what it affects; get approval for this exact action |
+
+
 ## Ask before starting
 
 Ask only what changes the answer. Skip anything the user or the project files
@@ -48,6 +57,8 @@ already state.
    scale in year one, integrations that already exist.
 5. Is this a prototype to validate demand, or a product that must be maintained
    for years?
+6. For an existing system: what runs today, on which runtime versions and
+   hosting, and who owns each part (people, vendors, accounts)?
 
 ## Workflow
 
@@ -71,9 +82,18 @@ already state.
    monthly run-cost range at launch and at 10× usage.
 8. **Write the risk register.** Top five risks with likelihood, impact and the
    cheapest mitigation.
-9. **Record key decisions** as short decision records (see template) so later
+9. **For existing systems**, check runtime and framework end-of-life dates,
+   the limits of the current hosting (shared hosting often blocks runtime
+   upgrades, background workers and custom services), and who owns what. Prefer
+   migrating in stages (hosting or runtime first, then code) with a rollback
+   at each stage over a big-bang rewrite. See
+   [references/stack-decision-guide.md](references/stack-decision-guide.md).
+10. **Estimate and propose** when the user needs a quote or a go/no-go: use
+    [references/estimates-and-proposals.md](references/estimates-and-proposals.md)
+    for ranges, assumptions and options.
+11. **Record key decisions** as short decision records (see template) so later
    readers know why, not just what.
-10. **Set engineering standards** for the team: branching, code review, testing
+12. **Set engineering standards** for the team: branching, code review, testing
     floor, definition of done. Keep it to one page.
 
 ## Deliverables
@@ -84,6 +104,7 @@ already state.
 | Stack comparison | Table inside the brief | [references/stack-decision-guide.md](references/stack-decision-guide.md) |
 | Decision records | One Markdown file per decision | [references/tech-strategy-brief.md](references/tech-strategy-brief.md#decision-record) |
 | Milestone plan and risk register | Sections of the brief | [references/tech-strategy-brief.md](references/tech-strategy-brief.md) |
+| Estimate or proposal | Options with ranges and assumptions | [references/estimates-and-proposals.md](references/estimates-and-proposals.md) |
 
 Save documents in the user's project (for example `docs/strategy/`) when you can
 write files; otherwise return them in the reply.
@@ -98,6 +119,8 @@ Before you call the plan ready:
 - [ ] Security basics are planned: auth, secrets handling, backups, least privilege.
 - [ ] Privacy and compliance requirements are mapped to concrete controls.
 - [ ] Nothing in the plan depends on a single person's unwritten knowledge.
+- [ ] For existing systems, end-of-life dates, hosting limits and owners are listed.
+- [ ] Estimates are ranges with assumptions, not single numbers.
 - [ ] Each irreversible decision (data store, cloud, mobile approach) has a
       decision record.
 
@@ -112,4 +135,5 @@ Before you call the plan ready:
 - **Plans without a cut line.** If everything is MVP, nothing ships.
 - **Silent lock-in.** Using a vendor's proprietary features without writing down
   the exit cost.
+- **Big-bang rewrites.** Migrate in stages with a working system at each step.
 - **Ignoring run cost.** A cheap build that is expensive to operate is not cheap.

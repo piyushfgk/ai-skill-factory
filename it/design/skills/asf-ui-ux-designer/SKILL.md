@@ -9,7 +9,7 @@ metadata:
   phase: "design, build"
   signals: "ux, ui, user research, flows, wireframes, visual design, design tokens, design system, usability"
   presets: "small, medium, large"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # UI Designer + UX Researcher
@@ -35,6 +35,15 @@ states), produce diagrams as code (for example Mermaid), low-fidelity wireframes
 in ASCII or HTML, and specs that a designer can recreate in any design tool.
 If the user has a design tool or file, follow it.
 
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Reading the existing design system, screenshots and analytics; drafting flows and wireframes | Nothing; do it |
+| Change | Writing design tokens or DESIGN.md into the repo; changing shared components' specs | Say what changes and how to undo it; get approval for this step |
+| Destructive | Replacing an existing design system or brand assets | Show the exact action and what it affects; get approval for this exact action |
+
+
 ## Ask before starting
 
 1. Who are the users and what are they trying to do? Is there a PRD or personas?
@@ -46,6 +55,9 @@ If the user has a design tool or file, follow it.
 
 ## Workflow
 
+0. **Read what exists first.** If the product has a design system, component
+   library, tokens or a `DESIGN.md`, use and extend it; propose changes only
+   where it falls short.
 1. **Understand.** Summarise what is known about users and their goals. If
    research is possible, write a short plan and interview guide using
    [references/ux-research.md](references/ux-research.md).
@@ -55,19 +67,24 @@ If the user has a design tool or file, follow it.
    Keep the main navigation to five or fewer top-level destinations on mobile.
 4. **Wireframe** the core screens at low fidelity. Focus on hierarchy and content,
    not colour. Review with the user before moving on.
-5. **Define the visual language** as design tokens with the structure in
+5. **Choose a style direction** with the user before tokens: two or three
+   options described in words and a small sample (type, colour roles, density,
+   corner style), using [references/style-and-admin-ui.md](references/style-and-admin-ui.md).
+   For admin and back-office tools, compare ready-made UI libraries there
+   before designing from scratch.
+6. **Define the visual language** as design tokens with the structure in
    [references/design-system.md](references/design-system.md): colour roles,
    type scale, spacing, radius, elevation, motion. Check contrast as you go.
-6. **Design components** with every state: default, hover, focus, active,
+7. **Design components** with every state: default, hover, focus, active,
    disabled, loading, error, empty.
-7. **Apply platform conventions.** Respect Material Design on Android and the
+8. **Apply platform conventions.** Respect Material Design on Android and the
    Human Interface Guidelines on iOS where they affect navigation, gestures and
    system controls, while keeping one brand.
-8. **Specify screens** for developers: layout, tokens used, behaviour, responsive
+9. **Specify screens** for developers: layout, tokens used, behaviour, responsive
    rules, accessibility notes and copy.
-9. **Test.** Run a usability test (five users finds most major issues) or a
+10. **Test.** Run a usability test (five users finds most major issues) or a
    heuristic review if users are not available. Prioritise findings by severity.
-10. **Iterate** and record what changed and why.
+11. **Iterate** and record what changed and why.
 
 ## Deliverables
 
@@ -77,6 +94,7 @@ If the user has a design tool or file, follow it.
 | User flows and site map | Mermaid diagrams | [references/ux-research.md](references/ux-research.md#user-flow-example) |
 | Wireframes | ASCII, HTML or the user's design tool | — |
 | Design tokens and component specs | Markdown + JSON tokens | [references/design-system.md](references/design-system.md) |
+| Design hand-off | `DESIGN.md` (tokens, components, screens, states) or a static HTML file | [references/style-and-admin-ui.md](references/style-and-admin-ui.md#design-hand-off) |
 | Usability or heuristic review | Findings table | [references/ux-research.md](references/ux-research.md#heuristic-review) |
 
 ## Checklists
@@ -90,6 +108,8 @@ If the user has a design tool or file, follow it.
 - [ ] Tokens are named by role (`color.text.primary`), not by value (`blue-500`).
 - [ ] Specs answer "what happens when…" for each interactive element.
 - [ ] Assumptions not backed by research are labelled.
+- [ ] The existing design system was read first and is extended, not replaced.
+- [ ] The hand-off is a `DESIGN.md` or HTML file a developer or agent can build from.
 
 ## Anti-patterns
 

@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal"
   presets: "core"
-  version: "0.2.2"
+  version: "0.3.0"
 ---
 
 # Delivery Lead + Engagement Manager
@@ -37,6 +37,14 @@ always-loaded list grows. A recorded, per-project team fixes both.
   - `asf-cto` for stack, budget and build-vs-buy decisions;
   - `asf-seo-specialist` once the web questions say SEO or analytics is in scope.
 
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Running `scripts/detect.sh`, reading files and the site profile | Nothing; run it |
+| Change | Writing `.asf/project.md`, adding the pointer to an instruction file, installing skills, editing `.gitignore` | Show what will be written; ask first |
+| Destructive | Removing skills or rewriting an existing instruction file | Do not, unless the user asks for that exact change |
+
 ## Pick the mode first
 
 Look at the folder before asking anything. Where you can run commands, run the
@@ -50,6 +58,13 @@ mode you picked so they can correct it.
   exist. Follow [references/adopt-existing.md](references/adopt-existing.md):
   read signals, not source; show found vs guessed; ask the goal; keep the
   project's own files, conventions, skills and tools.
+- **Operations (no code repo):** the work is on a running service, host or
+  appliance with no repository here (for example "the site is down", "renew
+  the certificate", "patch the server"). Check the host type, the account the
+  agent acts as, whether the host can be reached now, and whether a rollback
+  (snapshot, backup, previous release) exists, using the site profile. Then
+  propose a small operations team (`asf-system-administrator`,
+  `asf-network-engineer`, and others by need) with the goal preset "Operate".
 - **Already adopted:** `.asf/project.md` exists. Show the current team, phase
   and goal, and ask what should change.
 

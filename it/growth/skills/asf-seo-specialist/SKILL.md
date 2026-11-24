@@ -9,7 +9,7 @@ metadata:
   phase: "design, build, launch, operate"
   signals: "seo, search ranking, google, search console, analytics, google analytics, ga4, traffic, keywords, blog, marketing site, shop, content site, sitemap, structured data"
   presets: "solo, small, medium, large"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # SEO Specialist + Web Analytics Specialist
@@ -34,6 +34,18 @@ tracking that ignores consent.
     keeping analytics scripts inside the performance budget;
   - `asf-product-manager` for which conversions matter and the content calendar;
   - `asf-ui-ux-designer` for navigation and page layout changes.
+
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Crawling your own site, reading search console and analytics, auditing pages | Nothing; do it |
+| Change | Changing titles, robots rules, sitemaps, redirects or tracking code | Say what changes and how to undo it; get approval for this step |
+| Destructive | Removing pages from the index, domain or URL structure changes, deleting analytics properties or data | Show the exact action and what it affects; get approval for this exact action |
+
+
+**Skip SEO** for private apps, admin tools and staging sites: make sure they
+are blocked from indexing (`noindex` and authentication) and stop there.
 
 ## Ask before starting
 
@@ -75,7 +87,13 @@ Skip anything already in the "Web" section of `.asf/project.md`.
    consent, and write the tracking plan before any code.
 8. **Hand implementation** to `asf-frontend-engineer` as a checklist, then
    verify on the live or preview site.
-9. **Report** after launch and monthly: indexed pages, impressions, clicks,
+9. **Domain moves** (new domain, apex to `www` or back, HTTP to HTTPS, new URL
+   structure): map every old URL to its new one, 301 redirects in one hop,
+   canonical tags and sitemaps on the new URLs, internal links updated, the
+   search console change of address where offered, and re-indexing watched
+   for several weeks. DNS and email records go to `asf-network-engineer`. See
+   [references/technical-seo.md](references/technical-seo.md#domain-moves).
+10. **Report** after launch and monthly: indexed pages, impressions, clicks,
    average position for key topics, Core Web Vitals, conversions, and the next
    three actions.
 
@@ -101,6 +119,8 @@ Before launch:
 - [ ] Structured data validates and matches visible content.
 - [ ] Core Web Vitals pass on mobile for key templates.
 - [ ] Analytics fires only after consent where the law requires it; events match the tracking plan.
+- [ ] On a domain move, every old URL redirects once to its new URL and the new domain is verified.
+- [ ] Private apps and staging are not indexed.
 - [ ] Search console and analytics access belong to the client's account, not a personal one.
 
 ## Anti-patterns

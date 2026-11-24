@@ -26,7 +26,7 @@ For each app the agent must reach, take the first route that works.
 | Route | Use when | Context cost | Watch out for |
 |---|---|---|---|
 | 1. Existing CLI (for example `gh`, `glab`, cloud CLIs, database clients) | A maintained CLI covers the tasks | None until called; output only | Auth stored on the machine; scope the token |
-| 2. MCP server | No good CLI, or the server adds auth, rich data or a hosted sandbox | Its tool definitions load every session it is enabled (often 1k to 10k+ tokens) | Enable per project; turn off unused tools if the platform allows; trust only known publishers |
+| 2. MCP server | No good CLI, or the server saves tokens or adds auth, rich data or a hosted sandbox | Its tool definitions load every session it is enabled (often 1k to 10k+ tokens) | Enable per project; turn off unused tools if the platform allows; trust only known publishers |
 | 3. Custom CLI or script | An app with neither, or you need only 3 to 5 calls | None until called | You maintain it; keep it tiny and documented |
 | Plain HTTP API calls | One-off reads | None | Easy to leak tokens in command history or logs |
 
@@ -35,6 +35,17 @@ Questions that settle a close call:
 - Does the agent need this app every session, or once a week? Rare use favours a CLI.
 - Is the data sensitive? Prefer the route with the narrowest token scope.
 - Will humans use it too? A CLI they can run is easier to debug together.
+
+### MCP scope rule
+
+| Kind of server | Scope | Why |
+|---|---|---|
+| Small and used in most sessions (docs lookup, code search or memory) | All projects (user level) | Low, steady context cost that pays for itself |
+| Heavy or task-specific (browser automation, test runners, large SaaS toolsets) | Per project, only where needed | Thousands of tokens of tool definitions per session |
+| Covered by a CLI the agent knows (code hosts, cloud providers, databases) | Usually none; use the CLI | No standing context cost |
+
+Record the choice per server in the site profile (machine-wide) or
+`.asf/project.md` (project-specific).
 
 ## Custom CLI
 

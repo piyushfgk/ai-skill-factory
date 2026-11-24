@@ -61,6 +61,8 @@ while IFS= read -r skill_md; do
         | grep -vxE 'name|description|license|compatibility|metadata' || true)
   [[ -z "$bad" ]] || err "non-portable frontmatter keys: ${bad//$'\n'/ }"
 
+  grep -q '^## Safety tiers' "$skill_md" || err "missing a '## Safety tiers' section (see templates/SKILL.template.md)"
+
   lines=$(wc -l < "$skill_md")
   (( lines < 500 )) || err "SKILL.md has $lines lines (keep under 500; move detail to references/)"
 

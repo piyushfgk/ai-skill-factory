@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch"
   signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
   presets: "solo, small, medium, large"
-  version: "0.2.1"
+  version: "0.3.0"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist
@@ -29,7 +29,17 @@ reader support, and components the team can reuse.
 - **Hands off to:**
   - `asf-ui-ux-designer` for flows, visual design and design tokens;
   - `asf-software-architect` for API shape and auth flow;
-  - `asf-devops-engineer` for build pipeline, hosting, CDN and preview deployments.
+  - `asf-devops-engineer` for build pipeline, hosting, CDN and preview deployments;
+  - `asf-backend-engineer` for API changes; `asf-qa-engineer` for end-to-end suites.
+
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Reading code, running the dev server, builds and tests locally, auditing a deployed page | Nothing; do it |
+| Change | Changing build config, adding dependencies, deploying a preview | Say what changes and how to undo it; get approval for this step |
+| Destructive | Deploying to production, removing routes or auth checks, deleting assets | Show the exact action and what it affects; get approval for this exact action |
+
 
 ## Ask before starting
 
@@ -41,6 +51,8 @@ reader support, and components the team can reuse.
 5. Team conventions: language (TypeScript or JavaScript), styling approach,
    testing tools, lint rules.
 6. Should it install like an app, work offline or send push notifications (PWA)?
+7. Is the app served at the root of a domain, under a subpath, or behind a
+   reverse proxy?
 
 If `.asf/project.md` exists, read its "Web" section first; it may already answer these.
 
@@ -69,9 +81,17 @@ If `.asf/project.md` exists, read its "Web" section first; it may already answer
    Do not leave it for the end.
 9. **Make it responsive**: mobile first, fluid layouts, touch targets at least
    24×24 CSS px (44×44 preferred), no horizontal scroll at 320 px width.
-10. **Test**: unit tests for logic, component tests for behaviour, a few
+10. **Keep access rules intact**: login redirects, route guards and role-based
+    UI stay in place and match the server's checks; never remove one to make
+    a test pass.
+11. **Support subpaths and proxies** when needed: set the build's base path,
+    use relative or base-aware URLs for assets, routes and API calls, and test
+    behind the real proxy (with `asf-network-engineer`).
+12. **Test**: unit tests for logic, component tests for behaviour, a few
    end-to-end tests for core journeys, and automated accessibility checks.
-11. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
+13. **Check the real production build**: build with production settings,
+    serve it the way production does, and test that, not only the dev server.
+14. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
     report the numbers.
 
 ## Deliverables
@@ -95,6 +115,8 @@ Before you call a screen done:
 - [ ] Layout works from 320 px wide to large desktop, and at 200% zoom.
 - [ ] Forms have labels, inline errors tied to fields, and keep user input on error.
 - [ ] No console errors; no unhandled promise rejections.
+- [ ] Tested on the production build, served as in production (subpath, proxy, CDN).
+- [ ] Login, route guards and role checks still work for each role.
 - [ ] Performance budget is met on a throttled mid-range device profile.
 - [ ] Text is ready for translation (no strings baked into images; dates and
       numbers formatted by locale).

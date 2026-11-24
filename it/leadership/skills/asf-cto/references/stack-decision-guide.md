@@ -67,3 +67,16 @@ requirements).
 | Analytics | Product analytics tool | Privacy rules forbid third parties |
 | Push notifications | Platform push services via a provider | Never |
 | Admin panel | Framework admin or internal-tool builder | Admins need a polished product of their own |
+
+## Existing systems
+
+| Question | Why it matters |
+|---|---|
+| Which runtime, framework and database versions run in production, and when do they leave security support? | An end-of-life runtime is a security risk and blocks library updates |
+| What does the hosting allow (root access, background workers, runtime versions, cron, outbound connections)? | Shared hosting limits often decide the migration path |
+| Who owns each account, domain, server and vendor contract? | Changes stall when nobody can approve or nobody has access |
+| What is the rollback at each step? | Staged migrations need a way back at every stage |
+
+Staged migration, typical order: backups and monitoring first, then hosting
+or runtime, then framework upgrades, then refactoring, then new features.
+Each stage ships on its own and can be rolled back.
