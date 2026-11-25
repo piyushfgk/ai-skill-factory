@@ -119,8 +119,10 @@ new files are live and before the smoke test:
 - Check the CDN's cache key includes the query string when `?v=` is used, and
   that the CDN respects the origin's `Cache-Control` for HTML.
 
-If the project uses a CDN vendor's companion skills (see
-`.asf/project.md`), use them for the exact purge command and cache settings.
+CDN settings to check, purge and verify steps, and provider notes
+(including Cloudflare) are in `asf-devops-engineer`'s
+`references/cdn-cache.md`. If the project uses a CDN vendor's companion
+skills (see `.asf/project.md`), use them for the exact commands.
 
 ## 7. Verify after each deploy
 

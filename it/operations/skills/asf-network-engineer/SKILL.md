@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch, operate"
   signals: "dns, domain, registrar, nameservers, split dns, reverse proxy, nginx, caddy, traefik, tls, ssl, certificate, https, tunnel, vpn, firewall, port forward, cdn, mx, spf, dkim, dmarc, unreachable, 502"
   presets: "small, medium, large"
-  version: "0.1.1"
+  version: "0.1.2"
 ---
 
 # Network Engineer + DNS Administrator
@@ -90,6 +90,9 @@ Scan only hosts and networks you own or are authorised to test.
 - [ ] apex and `www` both work and one redirects to the other.
 - [ ] Only needed ports are open; admin interfaces only over VPN or tunnel.
 - [ ] Split DNS answers match on the inside and the outside where intended.
+- [ ] A CDN or caching proxy keeps the query string in the cache key, respects
+      origin `Cache-Control`, and doesn't cache HTML unless deploys purge it
+      (settings table in `asf-devops-engineer`'s `references/cdn-cache.md`).
 
 ## Anti-patterns
 

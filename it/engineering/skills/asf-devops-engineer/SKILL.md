@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch, operate"
   signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns, cdn, cache purge, stale cache"
   presets: "solo, small, medium, large"
-  version: "0.4.0"
+  version: "0.4.1"
 ---
 
 # DevOps Engineer + Site Reliability Engineer
@@ -86,7 +86,9 @@ reference them by name in the platform's secret store.
    files (service worker, manifest, `version.json`) from the CDN and any page
    cache after the new files are live. Check that the CDN cache key includes
    the query string when assets use `?v=`. Keep the previous release's
-   hashed assets available for at least a day.
+   hashed assets available for at least a day. CDN settings to check, purge
+   and verify steps, and provider notes:
+   [references/cdn-cache.md](references/cdn-cache.md).
 6. **Set smoke-test baselines and rollback criteria** before each release with
    `asf-qa-engineer`: which checks run after deploy, what result counts as a
    failure, and the rollback that follows automatically or by a named person.
@@ -119,6 +121,7 @@ reference them by name in the platform's secret store.
 | CI/CD pipeline | Pipeline config in the user's CI system | [references/devops-playbook.md](references/devops-playbook.md#pipeline-stages) |
 | Infrastructure as code | Code in the user's repo | Follow project conventions |
 | Runbooks | One Markdown file per failure mode | [references/production-readiness.md](references/production-readiness.md#runbook-template) |
+| CDN cache settings and purge stage | Settings table checked, purge step in the pipeline | [references/cdn-cache.md](references/cdn-cache.md) |
 | Production readiness report | Checklist with findings | [references/production-readiness.md](references/production-readiness.md) |
 
 ## Checklists
