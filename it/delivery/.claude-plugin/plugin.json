@@ -1,6 +1,6 @@
 {
   "name": "asf-it-delivery",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Project kickoff, project setup, agent orchestration and technical writing: pick the right team of skills for a brief, set up the agent's tools, run worker agents and keep docs current.",
   "license": "GPL-3.0-only",
   "keywords": [
