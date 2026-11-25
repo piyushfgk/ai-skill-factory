@@ -79,6 +79,30 @@ The full catalog, with each skill's phase, presets and signals, is in
 Skills are stack-neutral: they compare options and help you choose rather than
 prescribing a framework or cloud.
 
+### Companion skills for the platform you choose
+
+Once a project picks a platform, its vendor's own skills know the products and
+CLIs better than any neutral skill. The kickoff and setup skills then propose
+them as **companions**, record them in `.asf/project.md`, and install only the
+ones you accept, next to your team. The first platform is **Cloudflare**
+(official skills from [cloudflare/skills](https://github.com/cloudflare/skills),
+Apache-2.0): `cloudflare`, `wrangler`, `workers-best-practices` and
+`cloudflare-email-service` by default, for Workers, Pages, R2, D1, KV, Queues
+and Email Routing or Sending.
+
+```bash
+~/ai-skill-factory/scripts/companions.sh --list
+~/ai-skill-factory/scripts/companions.sh --project . cloudflare              # default skills
+~/ai-skill-factory/scripts/companions.sh --project . cloudflare:cloudflare,cf-cli
+~/ai-skill-factory/scripts/companions.sh --project . --from .asf/project.md --gitignore
+```
+
+It fetches the vendor's repository into `~/.cache/asf/companions/` and links
+the chosen skill folders (or copies them with `--copy`); it never touches
+folders it did not create. Pin a commit with `cloudflare@<commit>` in the
+`asf:companions` block. To add another vendor, see
+[companions/README.md](companions/README.md).
+
 **Starting a new web or mobile app?** Start with `asf-project-kickoff`. Without
 it, run the roles roughly in this order: `asf-product-manager` → `asf-cto` →
 `asf-ui-ux-designer` → `asf-software-architect` → `asf-devops-engineer` →
@@ -162,6 +186,8 @@ repo. `asf-project-setup` creates it from a template.
 AGENTS.md                           # rules for writing skills (CLAUDE.md imports it)
 templates/SKILL.template.md         # copy this to start a new skill
 scripts/install.sh                  # install into Claude / Codex / Gemini skill folders
+scripts/companions.sh               # install a chosen platform vendor's own skills
+companions/<platform>.md            # where a vendor's skills live, defaults, signals
 scripts/catalog.sh                  # regenerate the kickoff's skill catalog from frontmatter
 scripts/validate.sh                 # check every skill against the spec and repo rules
 scripts/check_content.py            # block real IPs, emails, key paths, tokens; parse frontmatter as YAML

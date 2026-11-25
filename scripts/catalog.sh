@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build the skill catalog that asf-project-kickoff reads to pick a team.
-# It is generated from each skill's frontmatter, so it never drifts.
+# It is generated from each skill's frontmatter and each companions/*.md file,
+# so it never drifts.
 #
 # Usage: scripts/catalog.sh            write the catalog
 #        scripts/catalog.sh --check    exit 1 if the catalog is out of date
@@ -43,6 +44,26 @@ EOF
       "$(fm "$md" name)" "$bundle" "$(fm "$md" roles)" "$(fm "$md" phase)" \
       "$(fm "$md" presets)" "$(fm "$md" signals)"
   done < <(find "$REPO_ROOT" -path "$REPO_ROOT/.git" -prune -o -path '*/skills/*/SKILL.md' -print | sort)
+
+  cat <<'EOF'
+
+## Companion skills
+
+A platform vendor's own skills, suggested only after the project has chosen
+that platform. Match **Signals** against the profile and repo scan, propose
+the **Default skills** in the `asf:companions` block of `.asf/project.md`, and
+install them with `scripts/companions.sh` after the user agrees. Details and
+optional skills are in `companions/<platform>.md` in the AI Skill Factory clone.
+
+| Platform | Source | Publisher | License | Default skills | Optional | Signals | Verified |
+|---|---|---|---|---|---|---|---|
+EOF
+  while IFS= read -r cf; do
+    # shellcheck disable=SC2016  # backticks are Markdown, not command substitution
+    printf '| `%s` | %s | %s | %s | %s | %s | %s | %s |\n' \
+      "$(fm "$cf" platform)" "$(fm "$cf" source)" "$(fm "$cf" publisher)" "$(fm "$cf" license)" \
+      "$(fm "$cf" skills)" "$(fm "$cf" optional)" "$(fm "$cf" signals)" "$(fm "$cf" verified)"
+  done < <(find "$REPO_ROOT/companions" -maxdepth 1 -name '*.md' ! -name README.md 2>/dev/null | sort)
 }
 
 case "${1:-}" in
@@ -51,5 +72,5 @@ case "${1:-}" in
     if [[ -f "$OUT" ]] && diff -q <(render) "$OUT" >/dev/null; then exit 0; fi
     echo "catalog is out of date: run scripts/catalog.sh" >&2; exit 1 ;;
   "") mkdir -p "$(dirname "$OUT")"; render > "$OUT"; echo "wrote ${OUT#"$REPO_ROOT"/}" ;;
-  *) sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
+  *) sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
 esac

@@ -1,15 +1,15 @@
 ---
 name: asf-project-kickoff
-description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, wants to add or install skills in an existing project or repo (adopt mode, which reads the codebase first and picks the team by goal such as maintain, add features, audit, migrate or launch), shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
+description: Acts as a delivery lead and engagement manager who turns a project brief into a confirmed team of role skills. Use when the user starts a new project, wants to add or install skills in an existing project or repo (adopt mode, which reads the codebase first and picks the team by goal such as maintain, add features, audit, migrate or launch), shares a brief or idea and asks where to begin, asks which skills, roles or team a project needs, wants a small, medium or large team, or wants to add, drop or switch skills for the current project or phase. Writes the decision to .asf/project.md and installs only the chosen skills. For websites and web apps it also asks about PWA, SEO, Search Console and analytics. When the project chooses a platform with vendor skills (for example Cloudflare for hosting, Workers, R2, D1 or email), it proposes those as companion skills. Not for writing the PRD itself (use asf-product-manager) or for wiring up trackers, MCP servers and CLIs (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "delivery-lead, engagement-manager"
   domain: "it"
   discipline: "delivery"
   phase: "all"
-  signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal"
+  signals: "new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal, companion skills, vendor skills"
   presets: "core"
-  version: "0.3.0"
+  version: "0.3.1"
 ---
 
 # Delivery Lead + Engagement Manager
@@ -111,11 +111,19 @@ team and ask what should change.
 5. **Propose the team** as a table: skill, roles, phase, one-line reason. Below
    it, list skills you left out and why, and any role the brief needs that the
    catalog does not have yet (planned, not available).
+   **Companion skills:** if the profile, the repo scan or the user has already
+   chosen a platform that has a row under "Companion skills" in the catalog
+   (match its signals), add a second short table: platform, the default skills,
+   source and licence, one line on why. Suggest companions only for a platform
+   that is chosen, never to steer the choice; while it is still open, leave the
+   choice to `asf-cto` and add the companions later.
 6. **Let the user decide.** Offer: accept, switch to another preset, add or
    drop named skills. Repeat until they accept. Do not install anything before.
 7. **Write `.asf/project.md`** from [assets/project-template.md](assets/project-template.md).
    Keep the team inside the `asf:team` markers, one skill per line, so the
-   installer can read it. Set the current phase (usually `discover`).
+   installer can read it. Put accepted companions inside the `asf:companions`
+   markers, one platform per line (`- cloudflare: cloudflare, wrangler`).
+   Set the current phase (usually `discover`).
 8. **Point the agent at it.** Add the pointer block in
    [assets/agents-pointer.md](assets/agents-pointer.md) to the project's
    instruction file (`AGENTS.md`; also `CLAUDE.md` or `GEMINI.md` if that is
@@ -130,7 +138,12 @@ team and ask what should change.
    `--gitignore` keeps `.asf/bench/` and symlinked skill folders out of git;
    leave it off if the user commits copied skills (`--copy`).
    Skills outside the current phase are parked in `.asf/bench/`, which agents
-   do not scan. If you cannot run commands, print them for the user.
+   do not scan. If there are companions, also run
+   `<clone>/scripts/companions.sh --project . --from .asf/project.md --gitignore`.
+   It fetches the vendor's repository (third-party content: name the source and
+   licence when you ask) and installs only the listed skills; record the commit
+   it prints as `- <platform>@<commit>: ...` to pin it. If you cannot run
+   commands, print them for the user.
 10. **Tell the user to restart or reload** their agent so it picks up the new
     skills, then hand off to `asf-project-setup`.
 
@@ -140,6 +153,8 @@ team and ask what should change.
   `.asf/project.md` and re-run the install command with the new `--phase`.
 - "Add a QA role", "drop the designer": edit the team block, say what changes
   and why, and re-run the install command.
+- "We moved to Cloudflare", "add the wrangler skill": edit the companions
+  block and re-run `scripts/companions.sh --project . --from .asf/project.md`.
 - Keep a dated line in the file's change log for every change.
 
 ## Deliverables
@@ -151,6 +166,7 @@ team and ask what should change.
 | Web kickoff answers | "Web" section of `.asf/project.md` | [references/web-kickoff.md](references/web-kickoff.md) |
 | Repo scan (adopt mode) | Found-vs-guessed table in `.asf/project.md` | [references/adopt-existing.md](references/adopt-existing.md) |
 | Gap list (optional audit) | Table: gap, evidence, owner skill, size | [references/adopt-existing.md](references/adopt-existing.md) |
+| Companion skills (chosen platform only) | `asf:companions` block in `.asf/project.md` | [references/catalog.md](references/catalog.md) |
 | Install commands | Shell commands, run after asking | Step 9 above |
 
 ## Checklists
@@ -166,6 +182,7 @@ team and ask what should change.
 - [ ] `.asf/project.md` has the team between the `asf:team` markers and a current phase.
 - [ ] The instruction file has one short `asf:pointer` block, not a copy of the profile.
 - [ ] Only the current phase's skills are active; the rest are in `.asf/bench/`.
+- [ ] Companion skills were proposed only for a platform already chosen, with source and licence shown.
 
 ## Anti-patterns
 
@@ -185,3 +202,5 @@ team and ask what should change.
   and conventions win; add to them.
 - **Copying role content into the profile.** The profile points to skills; it
   does not repeat them.
+- **A vendor's whole plugin for one product.** Installing every skill (and an
+  MCP server) from a vendor when the project uses two of its products.

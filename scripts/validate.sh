@@ -85,6 +85,23 @@ while IFS= read -r pj; do
   grep -q "\"name\": \"$pname\"" "$mk" || { echo "• plugin $pname is not listed in marketplace.json"; fail=1; }
 done < <(find "$REPO_ROOT" -path "$REPO_ROOT/.claude-plugin" -prune -o -path '*/.claude-plugin/plugin.json' -print)
 
+# Companion platform files (companions/<platform>.md) need every key the installer reads.
+while IFS= read -r cf; do
+  plat="$(basename "$cf" .md)"
+  echo "• companions/$plat.md"
+  [[ "$(head -n1 "$cf")" == "---" ]] || { err "must start with frontmatter (---)"; continue; }
+  for k in platform title source ref path publisher license skills signals verified; do
+    [[ -n "$(fm "$cf" "$k")" ]] || err "missing $k"
+  done
+  [[ "$(fm "$cf" platform)" == "$plat" ]] || err "platform must equal the file name '$plat'"
+  [[ "$(fm "$cf" source)" =~ ^https://[^[:space:]]+$ ]] || err "source must be an https URL"
+  [[ "$(fm "$cf" verified)" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || err "verified must be YYYY-MM-DD"
+  for n in $(fm "$cf" skills | tr ',' ' ') $(fm "$cf" optional | tr ',' ' '); do
+    [[ "$n" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || err "bad skill name '$n'"
+    [[ "$n" != asf-* ]] || err "companion skill '$n' must not use the asf- prefix"
+  done
+done < <(find "$REPO_ROOT/companions" -maxdepth 1 -name '*.md' ! -name README.md 2>/dev/null | sort)
+
 # The kickoff's catalog must match the skills' frontmatter.
 if [[ -x "$REPO_ROOT/scripts/catalog.sh" ]]; then
   "$REPO_ROOT/scripts/catalog.sh" --check || { echo "• run scripts/catalog.sh and commit the result"; fail=1; }

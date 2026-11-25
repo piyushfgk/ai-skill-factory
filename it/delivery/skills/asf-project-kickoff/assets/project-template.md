@@ -34,6 +34,14 @@ Current phase: <discover | design | build | launch | operate>
 Left out: <skill (reason)>
 Needed but not in the library yet: <role (who covers it meanwhile)>
 
+## Companions
+
+<Vendor skills for the platform this project chose (see the catalog's
+"Companion skills"), or "none". Pin with platform@commit once installed.>
+
+<!-- asf:companions (platform[@ref]: skills; scripts/companions.sh --from reads this block) -->
+<!-- /asf:companions -->
+
 ## Existing agent setup
 
 <Instruction files, non-asf skills (kept), MCP servers, tracker. "None" for a new project.>
