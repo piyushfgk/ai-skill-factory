@@ -1,15 +1,15 @@
 ---
 name: asf-project-setup
-description: Acts as a developer-experience engineer and platform engineer who sets up how AI agents work on a project. Use after a project kickoff, or when the user asks which agent platform to use (Claude Code, Codex CLI, Gemini CLI or others), how to track progress (GitHub Issues, Jira, Linear, Trello, a TASKS.md), which MCP servers, CLIs or GitHub access to connect, how to save tokens or context, whether to build a small CLI for an app, which tools the agent may install, or how the agent gets credentials. Records the choices in .asf/project.md. Not for choosing the project's team of skills (use asf-project-kickoff) or for production hosting and CI/CD (use asf-devops-engineer).
+description: Acts as a developer-experience engineer and platform engineer who sets up how AI agents work on a project. Use after a project kickoff, or when the user asks which agent platform to use (Claude Code, Codex CLI, Gemini CLI or others), how to track progress (GitHub Issues, Jira, Linear, Trello, a TASKS.md), which MCP servers, CLIs or GitHub access to connect, how to save tokens or context, whether to build a small CLI for an app, which tools the agent may install, how the agent gets credentials, or which vendor companion skills to add for a chosen platform (for example Cloudflare's own skills for Workers, R2, D1 or email). Records the choices in .asf/project.md. Not for choosing the project's team of skills (use asf-project-kickoff) or for production hosting and CI/CD (use asf-devops-engineer).
 license: GPL-3.0-only
 metadata:
   roles: "developer-experience-engineer, platform-engineer"
   domain: "it"
   discipline: "delivery"
   phase: "all"
-  signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform"
+  signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin"
   presets: "core"
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Developer-Experience Engineer + Platform Engineer
@@ -25,7 +25,8 @@ job, and a setup any teammate (or another agent) can reproduce from the repo**.
 - **Owns:** agent platform choice and its project config, the progress tracker,
   code-host permissions for the agent, integrations (CLI, MCP server or custom
   CLI), tool-install policy, how the agent gets secrets, the agent's
-  instruction file, and the "Setup" section of `.asf/project.md`.
+  instruction file, companion skills from platform vendors, and the "Setup"
+  section of `.asf/project.md`.
 - **Hands off to:**
   - `asf-project-kickoff` for the team of skills and the current phase;
   - `asf-devops-engineer` for production CI/CD, hosting and cloud accounts;
@@ -87,19 +88,32 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
    1. an existing official CLI (no standing context cost);
    2. an MCP server, enabled for this project only and trimmed to the tools used;
    3. a small custom CLI or script wrapping only the calls the project needs.
-5. **Trim always-loaded context**: keep the instruction file short and point
+5. **Add companion skills for the chosen platform.** When hosting or another
+   platform is now decided (here, or by `asf-devops-engineer` or `asf-cto`)
+   and it has a row under "Companion skills" in the kickoff's catalog
+   (`asf-project-kickoff/references/catalog.md`), propose its default skills,
+   with source and licence. Compare the routes in the platform's
+   `companions/<platform>.md` in the AI Skill Factory clone: the vendor's own
+   plugin is easiest but usually brings every skill and an MCP server;
+   `scripts/companions.sh` installs only the listed skills for any agent. After
+   the user agrees, write them in the `asf:companions` block of
+   `.asf/project.md` and run
+   `<clone>/scripts/companions.sh --project . --from .asf/project.md --gitignore`.
+   Treat the vendor's MCP server like any other (step 4): per project, only if
+   the CLI is not enough.
+6. **Trim always-loaded context**: keep the instruction file short and point
    to `.asf/project.md`; add ignore rules for build output, lockfiles,
    generated code and large data; turn off MCP servers and skills not in use.
    See [references/integrations.md](references/integrations.md#token-budget).
-6. **Set the install policy**: list the tools the project needs (runtime,
+7. **Set the install policy**: list the tools the project needs (runtime,
    package manager, linters, CLIs), how each is installed, and whether the
    agent may install them. Prefer pinned versions and a dev container or
    setup script so humans and agents get the same tools.
-7. **Set up secrets**: environment variables loaded from a local, ignored file,
+8. **Set up secrets**: environment variables loaded from a local, ignored file,
    the platform's secret store, or a secrets manager. Document names, not values.
-8. **Write it down**: fill the "Setup" section of `.asf/project.md` and give
+9. **Write it down**: fill the "Setup" section of `.asf/project.md` and give
    the user a short checklist of commands to run, or run them after asking.
-9. **Verify**: ask the agent to do one small real task through each integration
+10. **Verify**: ask the agent to do one small real task through each integration
    (read an issue, open a draft pull request, query a read-only endpoint).
 
 ## Deliverables
@@ -110,7 +124,8 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 | Platform config | Instruction file, MCP config, skills folder, ignore files | [references/platforms.md](references/platforms.md) |
 | Custom CLI (when needed) | Script in `scripts/` or `.asf/tools/` with `--help` | [references/integrations.md](references/integrations.md#custom-cli) |
 | Site profile (local, git-ignored) | `~/.asf/site.local.md` | [assets/site-profile-template.md](assets/site-profile-template.md) |
-| Setup checklist | Commands per platform, in order | Step 8 above |
+| Companion skills (chosen platform only) | `asf:companions` block in `.asf/project.md` | Step 5 above |
+| Setup checklist | Commands per platform, in order | Step 9 above |
 
 ## Checklists
 
@@ -121,6 +136,7 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 - [ ] Tokens are scoped to the minimum; write access is deliberate.
 - [ ] No secret values in the repo, config or project file.
 - [ ] Tool versions are pinned or written down; installs follow the agreed policy.
+- [ ] Companion skills, if any, are for a chosen platform, listed in `.asf/project.md` and pinned to a commit.
 - [ ] Each integration was checked with one real, harmless task.
 
 ## Anti-patterns

@@ -63,6 +63,7 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/leadership` | [`asf-cto`](it/leadership/skills/asf-cto/SKILL.md) | CTO, tech lead | choose a stack, decide build vs buy, plan milestones, cost and risk |
 | `it/leadership` | [`asf-product-manager`](it/leadership/skills/asf-product-manager/SKILL.md) | Product manager, business analyst | write a PRD, user stories, MVP scope, metrics |
 | `it/engineering` | [`asf-software-architect`](it/engineering/skills/asf-software-architect/SKILL.md) | Software architect, API designer | design the system, data model and API contracts |
+| `it/engineering` | [`asf-backend-engineer`](it/engineering/skills/asf-backend-engineer/SKILL.md) | Backend engineer, API developer | build APIs, auth, data access, migrations, jobs, webhooks and email on any runtime |
 | `it/engineering` | [`asf-frontend-engineer`](it/engineering/skills/asf-frontend-engineer/SKILL.md) | Frontend engineer, accessibility specialist | build fast, accessible, responsive UI |
 | `it/engineering` | [`asf-devops-engineer`](it/engineering/skills/asf-devops-engineer/SKILL.md) | DevOps engineer, SRE | CI/CD, infra as code, hosting, monitoring, releases |
 | `it/design` | [`asf-ui-ux-designer`](it/design/skills/asf-ui-ux-designer/SKILL.md) | UI designer, UX researcher | research, flows, wireframes, design system |
@@ -74,10 +75,34 @@ The full catalog, with each skill's phase, presets and signals, is in
 Skills are stack-neutral: they compare options and help you choose rather than
 prescribing a framework or cloud.
 
+### Companion skills for the platform you choose
+
+Once a project picks a platform, its vendor's own skills know the products and
+CLIs better than any neutral skill. The kickoff and setup skills then propose
+them as **companions**, record them in `.asf/project.md`, and install only the
+ones you accept, next to your team. The first platform is **Cloudflare**
+(official skills from [cloudflare/skills](https://github.com/cloudflare/skills),
+Apache-2.0): `cloudflare`, `wrangler`, `workers-best-practices` and
+`cloudflare-email-service` by default, for Workers, Pages, R2, D1, KV, Queues
+and Email Routing or Sending.
+
+```bash
+~/ai-skill-factory/scripts/companions.sh --list
+~/ai-skill-factory/scripts/companions.sh --project . cloudflare              # default skills
+~/ai-skill-factory/scripts/companions.sh --project . cloudflare:cloudflare,cf-cli
+~/ai-skill-factory/scripts/companions.sh --project . --from .asf/project.md --gitignore
+```
+
+It fetches the vendor's repository into `~/.cache/asf/companions/` and links
+the chosen skill folders (or copies them with `--copy`); it never touches
+folders it did not create. Pin a commit with `cloudflare@<commit>` in the
+`asf:companions` block. To add another vendor, see
+[companions/README.md](companions/README.md).
+
 **Starting a new web or mobile app?** Start with `asf-project-kickoff`. Without
 it, run the roles roughly in this order: `asf-product-manager` → `asf-cto` →
 `asf-ui-ux-designer` → `asf-software-architect` → `asf-devops-engineer` →
-`asf-frontend-engineer` → `asf-seo-specialist`.
+`asf-backend-engineer` → `asf-frontend-engineer` → `asf-seo-specialist`.
 
 ## Install
 
@@ -156,6 +181,8 @@ repo. `asf-project-setup` creates it from a template.
 AGENTS.md                           # rules for writing skills (CLAUDE.md imports it)
 templates/SKILL.template.md         # copy this to start a new skill
 scripts/install.sh                  # install into Claude / Codex / Gemini skill folders
+scripts/companions.sh               # install a chosen platform vendor's own skills
+companions/<platform>.md            # where a vendor's skills live, defaults, signals
 scripts/catalog.sh                  # regenerate the kickoff's skill catalog from frontmatter
 scripts/validate.sh                 # check every skill against the spec and repo rules
 scripts/check_content.py            # block real IPs, emails, key paths, tokens; parse frontmatter as YAML
@@ -173,7 +200,7 @@ must pass.
 
 ## Roadmap
 
-Next skills, in preset order: backend engineer, QA engineer, security engineer,
+Next skills, in preset order: QA engineer, security engineer,
 mobile engineer (Android + iOS), data analyst, technical writer, then the
 Large-preset groups (reliability, data and ML, compliance, growth, customers).
 
