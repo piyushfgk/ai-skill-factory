@@ -111,6 +111,8 @@ fi
 if command -v python3 >/dev/null 2>&1; then
   echo "• content scan (IPs, emails, key paths, tokens) and YAML frontmatter"
   python3 "$REPO_ROOT/scripts/check_content.py" "$REPO_ROOT" || fail=1
+  echo "• routing tests (made-up briefs in tests/routing/)"
+  python3 "$REPO_ROOT/scripts/check_routing.py" | sed 's/^/  /' || fail=1
 else
   echo "• python3 not found: content scan skipped (CI runs it)"
 fi

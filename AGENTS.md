@@ -74,9 +74,12 @@ Copy `templates/SKILL.template.md` and keep its section order. A good role skill
 
 ```bash
 ./scripts/catalog.sh           # regenerate the kickoff's catalog after any frontmatter change
-./scripts/validate.sh          # spec + repo rules, catalog, content scan, YAML
+./scripts/validate.sh          # spec + repo rules, catalog, content scan, YAML, routing tests
 shellcheck scripts/*.sh        # CI also runs shellcheck and gitleaks
 ```
+
+When you add a skill or change its `signals`, add or update a made-up brief in
+`tests/routing/` and run `./scripts/check_routing.py -v`.
 
 Bump `metadata.version` in the skill and `version` in the bundle's
 `plugin.json` when you change behaviour.
