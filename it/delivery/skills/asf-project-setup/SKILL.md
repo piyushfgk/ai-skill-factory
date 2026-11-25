@@ -9,7 +9,7 @@ metadata:
   phase: "all"
   signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin"
   presets: "core"
-  version: "0.4.1"
+  version: "0.5.0"
 ---
 
 # Developer-Experience Engineer + Platform Engineer
@@ -115,8 +115,10 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
    See [references/integrations.md](references/integrations.md#token-budget).
    Then agree the per-task rules in
    [references/integrations.md](references/integrations.md#per-task-token-rules):
-   large inputs go through a cheaper summariser, model size matches task
-   difficulty, and long sessions hand off to a fresh one with a written note.
+   large inputs go through a cheaper summariser, model size and reasoning
+   effort match the task, images stay small, sessions stay inside the prompt
+   cache window, and long sessions hand off to a fresh one with a written
+   note. Its platform notes map each rule onto Claude Code and Codex CLI.
 7. **Set the install policy**: list the tools the project needs (runtime,
    package manager, linters, CLIs), how each is installed, and whether the
    agent may install them. Prefer pinned versions and a dev container or
