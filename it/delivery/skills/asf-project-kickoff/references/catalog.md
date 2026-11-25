@@ -11,8 +11,8 @@ Phases: `all`, `discover`, `design`, `build`, `launch`, `operate`.
 
 | Skill | Bundle | Roles | Phase | Presets | Signals |
 |---|---|---|---|---|---|
-| `asf-project-kickoff` | `it/delivery` | delivery-lead, engagement-manager | all | core | new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal |
-| `asf-project-setup` | `it/delivery` | developer-experience-engineer, platform-engineer | all | core | agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform |
+| `asf-project-kickoff` | `it/delivery` | delivery-lead, engagement-manager | all | core | new project, existing project, existing codebase, adopt, brief, kickoff, which skills, team, roles, preset, small team, large team, phase, goal, companion skills, vendor skills |
+| `asf-project-setup` | `it/delivery` | developer-experience-engineer, platform-engineer | all | core | agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin |
 | `asf-ui-ux-designer` | `it/design` | ui-designer, ux-researcher | design, build | small, medium, large | ux, ui, user research, flows, wireframes, visual design, design tokens, design system, usability |
 | `asf-devops-engineer` | `it/engineering` | devops-engineer, site-reliability-engineer | build, launch, operate | solo, small, medium, large | hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns |
 | `asf-frontend-engineer` | `it/engineering` | frontend-engineer, accessibility-specialist | build, launch | solo, small, medium, large | website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline |
@@ -23,3 +23,15 @@ Phases: `all`, `discover`, `design`, `build`, `launch`, `operate`.
 | `asf-product-manager` | `it/leadership` | product-manager, business-analyst | discover, design, launch | solo, small, medium, large | app idea, product brief, prd, users, personas, user stories, mvp, scope, backlog, metrics, competitors |
 | `asf-network-engineer` | `it/operations` | network-engineer, dns-administrator | build, launch, operate | small, medium, large | dns, domain, registrar, nameservers, split dns, reverse proxy, nginx, caddy, traefik, tls, ssl, certificate, https, tunnel, vpn, firewall, port forward, cdn, mx, spf, dkim, dmarc, unreachable, 502 |
 | `asf-system-administrator` | `it/operations` | systems-administrator, remote-access-engineer | build, launch, operate | small, medium, large | server, vps, ssh, linux, host, nas, appliance, shared hosting, cpanel, systemd, pm2, php-fpm, docker compose, patching, logs, disk full, restart service, snapshot, rollback, remote access, vpn |
+
+## Companion skills
+
+A platform vendor's own skills, suggested only after the project has chosen
+that platform. Match **Signals** against the profile and repo scan, propose
+the **Default skills** in the `asf:companions` block of `.asf/project.md`, and
+install them with `scripts/companions.sh` after the user agrees. Details and
+optional skills are in `companions/<platform>.md` in the AI Skill Factory clone.
+
+| Platform | Source | Publisher | License | Default skills | Optional | Signals | Verified |
+|---|---|---|---|---|---|---|---|
+| `cloudflare` | https://github.com/cloudflare/skills | Cloudflare (official) | Apache-2.0 | cloudflare, wrangler, workers-best-practices, cloudflare-email-service | cf-cli, cloudflare-app-bootstrap, workers-development, frameworks-on-cloudflare, nextjs-on-cloudflare, durable-objects, agents-sdk, turnstile-spin, cloudflare-one | cloudflare, workers, cloudflare pages, r2, d1, kv, durable objects, wrangler, cloudflare email, email routing, turnstile, move to cloudflare | 2026-11-25 |

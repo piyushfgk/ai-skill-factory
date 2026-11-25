@@ -37,7 +37,10 @@ Every bundle must be listed in `.claude-plugin/marketplace.json` at the repo roo
    "run the command", "ask the user".
 7. **Stack-neutral.** Do not prescribe a framework, cloud or vendor. Present
    options with trade-offs and help the user choose. Examples may name tools
-   only as one option among several.
+   only as one option among several. Vendor-specific guidance belongs in the
+   vendor's own skills, listed as **companions** in `companions/<platform>.md`
+   (see `companions/README.md`) and installed only once a project has chosen
+   that platform.
 8. **Only frontmatter fields from the spec:** `name`, `description`, `license`,
    `compatibility`, `metadata`. Keep `metadata` values as strings.
 9. **Router metadata.** Every skill sets three `metadata` strings that
