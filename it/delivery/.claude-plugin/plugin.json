@@ -1,7 +1,7 @@
 {
   "name": "asf-it-delivery",
-  "version": "0.4.1",
-  "description": "Project kickoff and project setup: pick the right team of skills for a brief and set up the agent's tools.",
+  "version": "0.5.0",
+  "description": "Project kickoff, project setup and agent orchestration: pick the right team of skills for a brief, set up the agent's tools and run worker agents.",
   "license": "GPL-3.0-only",
   "keywords": [
     "agent-skills",
