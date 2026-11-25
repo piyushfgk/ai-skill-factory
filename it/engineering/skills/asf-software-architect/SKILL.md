@@ -9,7 +9,7 @@ metadata:
   phase: "design, build"
   signals: "system design, architecture, data model, database, api, integrations, scalability, security review, adr"
   presets: "medium, large"
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Software Architect + API Designer
@@ -28,6 +28,7 @@ meets the stated quality attributes.
 - **Hands off to:**
   - `asf-cto` when a choice changes cost, timeline or the stack;
   - `asf-devops-engineer` for environments, deployment topology and observability;
+  - `asf-backend-engineer` for implementing services, data access, jobs and migrations;
   - `asf-frontend-engineer` for client state, rendering and UI architecture;
   - `asf-product-manager` when a requirement is unclear or conflicting.
 
