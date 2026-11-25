@@ -36,8 +36,12 @@ Prefer managed databases over self-hosted unless cost or compliance forces it.
 7. **Smoke and end-to-end tests** against staging.
 8. **Promote to production** with the same artifact: rolling, blue-green or
    canary, with automatic rollback on failed health checks.
-9. **Verify**: health checks, error rate and latency compared with before deploy.
-10. **Notify** the team with the version and change log.
+9. **Purge caches**: CDN and server page cache for HTML and unversioned
+   entry files (or everything on small sites); versioned assets need no purge.
+   Keep the previous release's hashed assets for at least a day.
+10. **Verify**: health checks, error rate and latency compared with before
+    deploy; the served release version and cache headers match the deploy.
+11. **Notify** the team with the version and change log.
 
 Rules: pipeline as code in the repo; required checks before merge; pin action or
 image versions; least-privilege tokens (prefer short-lived OIDC credentials over

@@ -43,7 +43,14 @@ rather than hand-writing caching logic, unless the needs are tiny.
   show an "Update available, reload" prompt, or activate on next visit.
 - Never cache the service worker file itself for long; serve it with
   `Cache-Control: no-cache` (coordinate with `asf-devops-engineer`).
-- Version caches and delete old ones on activate.
+- Version caches with the release version (for example `app-shell-1.4.2`)
+  and delete caches with other names on activate.
+- Change the service worker file on every release (embed the version or the
+  hashed precache list); a byte-identical file is not an update.
+- Serve the manifest `no-cache` too, and version icon URLs when the art changes.
+- Check for updates while the app stays open (on focus or every few hours).
+- Full flow, header table and post-deploy checks:
+  [cache-busting.md](cache-busting.md#4-pwas-update-the-service-worker-safely).
 - Have a kill switch: a no-op service worker you can deploy if a bad one ships.
 
 ## UX checklist

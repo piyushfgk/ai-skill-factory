@@ -64,6 +64,18 @@ both sides after every change. Avoid publishing private addresses in public DNS.
 - Certificates: automatic issue and renewal (ACME), HTTP-to-HTTPS redirect,
   HSTS once HTTPS is stable everywhere, and an alert before expiry.
 
+## Proxy and edge caching
+
+If the reverse proxy, CDN or tunnel provider caches responses:
+
+- Respect the origin's `Cache-Control` by default; don't add a "cache
+  everything" rule for HTML unless deploys purge it.
+- Keep the query string in the cache key, so `?v=` asset versions fetch the new file.
+- Never cache responses that set cookies or carry `Authorization`, and never
+  cache per-user pages under a shared key.
+- Give `asf-devops-engineer` a purge command or API call for the pipeline,
+  and a cache-status response header to verify hits and misses.
+
 ## Tunnels and VPN
 
 | Option | Good for | Trade-offs |

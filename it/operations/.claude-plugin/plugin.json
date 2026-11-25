@@ -1,6 +1,6 @@
 {
   "name": "asf-it-operations",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "System administrator, network engineer and database administrator roles for running servers, appliances, DNS, proxies, tunnels and databases.",
   "license": "GPL-3.0-only",
   "keywords": [

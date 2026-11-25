@@ -32,6 +32,10 @@ care: they often have no tests, no staging and plugins nobody remembers adding.
 
 - **White screen or 500:** read the PHP error log; disable the last-changed
   plugin by renaming its folder on staging first.
+- **Changes not showing after an update:** theme or plugin assets enqueued
+  without a version argument (set it to the theme version or the file's
+  modification time), a page-cache plugin or server cache not purged, or a
+  CDN caching HTML. Purge in that order: page cache, then CDN.
 - **Slow pages:** page cache, object cache, image sizes, plugin count, slow
   database queries.
 - **Hacked site:** treat as an incident with `asf-security-engineer`: take a

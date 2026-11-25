@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch, operate"
   signals: "dns, domain, registrar, nameservers, split dns, reverse proxy, nginx, caddy, traefik, tls, ssl, certificate, https, tunnel, vpn, firewall, port forward, cdn, mx, spf, dkim, dmarc, unreachable, 502"
   presets: "small, medium, large"
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Network Engineer + DNS Administrator

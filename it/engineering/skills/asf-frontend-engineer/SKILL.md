@@ -1,15 +1,15 @@
 ---
 name: asf-frontend-engineer
-description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG). Also covers progressive web apps (PWA), including the manifest, service worker, offline use and install. Not for visual design (use asf-ui-ux-designer) or search ranking (use asf-seo-specialist).
+description: Acts as a UI/UX frontend engineer and accessibility specialist for web apps and the UI layer of mobile apps. Use when the user needs to build or review screens and components, set up a frontend project, choose a rendering or state approach, implement a design system, fix responsive layout, improve Core Web Vitals or performance, or make an interface accessible (WCAG). Also covers progressive web apps (PWA), including the manifest, service worker, offline use and install, and cache busting so updates show up at once after a deploy (versioned asset URLs, cache headers, service worker updates) when users still see the old site. Not for visual design (use asf-ui-ux-designer) or search ranking (use asf-seo-specialist).
 license: GPL-3.0-only
 metadata:
   roles: "frontend-engineer, accessibility-specialist"
   domain: "it"
   discipline: "engineering"
   phase: "build, launch"
-  signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline"
+  signals: "website, web app, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline, cache busting, stale cache, update not showing"
   presets: "solo, small, medium, large"
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist
@@ -67,31 +67,36 @@ If `.asf/project.md` exists, read its "Web" section first; it may already answer
 3. **Plan PWA capabilities** if needed (install, offline, push) with
    [references/pwa.md](references/pwa.md); agree the caching and update strategy
    before building screens.
-4. **Set the performance budget** (see standards) and add a check to CI if possible.
-5. **Implement design tokens first**: colour, type scale, spacing, radius,
+4. **Plan versioning and caching** before the first release with
+   [references/cache-busting.md](references/cache-busting.md): a release
+   version, hashed file names or `?v=` parameters for every asset, cache
+   headers per response type, the service worker update flow, and the CDN
+   purge step for `asf-devops-engineer`.
+5. **Set the performance budget** (see standards) and add a check to CI if possible.
+6. **Implement design tokens first**: colour, type scale, spacing, radius,
    elevation, motion, including dark mode if required.
-6. **Build components bottom up**: primitives (button, input, dialog), then
+7. **Build components bottom up**: primitives (button, input, dialog), then
    composites (forms, cards, tables), then screens. Each component handles its
    loading, empty, error and disabled states.
-7. **Wire data** with a clear split between server state (fetched, cached,
+8. **Wire data** with a clear split between server state (fetched, cached,
    revalidated) and UI state (local, ephemeral). Handle slow, failed and offline
    requests visibly.
-8. **Make it accessible as you build**, using the checklist in
+9. **Make it accessible as you build**, using the checklist in
    [references/accessibility-checklist.md](references/accessibility-checklist.md).
    Do not leave it for the end.
-9. **Make it responsive**: mobile first, fluid layouts, touch targets at least
+10. **Make it responsive**: mobile first, fluid layouts, touch targets at least
    24×24 CSS px (44×44 preferred), no horizontal scroll at 320 px width.
-10. **Keep access rules intact**: login redirects, route guards and role-based
+11. **Keep access rules intact**: login redirects, route guards and role-based
     UI stay in place and match the server's checks; never remove one to make
     a test pass.
-11. **Support subpaths and proxies** when needed: set the build's base path,
+12. **Support subpaths and proxies** when needed: set the build's base path,
     use relative or base-aware URLs for assets, routes and API calls, and test
     behind the real proxy (with `asf-network-engineer`).
-12. **Test**: unit tests for logic, component tests for behaviour, a few
+13. **Test**: unit tests for logic, component tests for behaviour, a few
    end-to-end tests for core journeys, and automated accessibility checks.
-13. **Check the real production build**: build with production settings,
+14. **Check the real production build**: build with production settings,
     serve it the way production does, and test that, not only the dev server.
-14. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
+15. **Measure** Core Web Vitals and bundle size, fix the biggest regressions, and
     report the numbers.
 
 ## Deliverables
@@ -101,6 +106,7 @@ If `.asf/project.md` exists, read its "Web" section first; it may already answer
 | Working code in the user's repo | Code + tests | Follow project conventions |
 | Frontend decisions | Short section in README or a decision record | [references/frontend-standards.md](references/frontend-standards.md) |
 | Accessibility report | Markdown checklist with findings | [references/accessibility-checklist.md](references/accessibility-checklist.md) |
+| Cache and versioning plan | Release version, asset URL scheme, header table, purge step | [references/cache-busting.md](references/cache-busting.md) |
 | PWA plan (if needed) | Capabilities, manifest, caching and update strategy | [references/pwa.md](references/pwa.md) |
 | Performance report | Core Web Vitals and bundle size before/after | [references/frontend-standards.md](references/frontend-standards.md#performance-budget) |
 
@@ -116,6 +122,9 @@ Before you call a screen done:
 - [ ] Forms have labels, inline errors tied to fields, and keep user input on error.
 - [ ] No console errors; no unhandled promise rejections.
 - [ ] Tested on the production build, served as in production (subpath, proxy, CDN).
+- [ ] Every asset URL is versioned (content hash or `?v=`); HTML, the service
+      worker and the manifest are served `no-cache`; a returning browser sees a
+      new deploy on a normal reload.
 - [ ] Login, route guards and role checks still work for each role.
 - [ ] Performance budget is met on a throttled mid-range device profile.
 - [ ] Text is ready for translation (no strings baked into images; dates and
@@ -131,4 +140,6 @@ Before you call a screen done:
 - **Shipping the whole library.** Large dependencies for one function; no code
   splitting.
 - **Pixel-perfect on one screen.** Fixed widths that break on other devices.
+- **"Clear your cache to see the update."** Same file names with new content
+  and long caching; version the URLs instead.
 - **Accessibility at the end.** Retrofitting is slower than building it in.

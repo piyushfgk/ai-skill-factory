@@ -9,7 +9,7 @@ metadata:
   phase: "design, build, launch, operate"
   signals: "seo, search ranking, google, search console, analytics, google analytics, ga4, traffic, keywords, blog, marketing site, shop, content site, sitemap, structured data"
   presets: "solo, small, medium, large"
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # SEO Specialist + Web Analytics Specialist
