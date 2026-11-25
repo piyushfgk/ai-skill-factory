@@ -1,0 +1,17 @@
+{
+  "name": "asf-it-operations",
+  "version": "0.1.0",
+  "description": "System administrator and network engineer roles for running servers, appliances, DNS, proxies and tunnels.",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "agent-skills",
+    "roles",
+    "it",
+    "operations",
+    "sysadmin",
+    "network"
+  ],
+  "author": {
+    "name": "Piyush Sachan"
+  }
+}
