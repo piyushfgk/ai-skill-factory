@@ -38,7 +38,7 @@ coverage (larger team).
 |---|---|
 | `asf-cto` | Stack and build-vs-buy choices that are expensive to undo |
 | `asf-ui-ux-designer` | Flows and screens before code |
-| `asf-backend-engineer` | API, auth, database, jobs |
+| `asf-backend-engineer` *(planned)* | API, auth, database |
 | `asf-qa-engineer` *(planned)* | Test plan and release checks |
 
 ### Medium = Small plus
@@ -46,7 +46,7 @@ coverage (larger team).
 | Skill | Why |
 |---|---|
 | `asf-software-architect` | Boundaries, data model and API contracts across several parts |
-| `asf-security-engineer` *(planned)* | Payments, personal data, threat model |
+| `asf-security-engineer` | Payments, personal data, threat model |
 | `asf-mobile-engineer` *(planned)* | Android and iOS apps |
 | `asf-data-analyst` *(planned)* | Metrics, dashboards, experiments |
 | `asf-technical-writer` *(planned)* | User docs, API docs, release notes |
@@ -57,6 +57,7 @@ Pick from these groups; most large projects need three or four of them, not all.
 
 | Group | Skills *(all planned unless noted)* |
 |---|---|
+| Servers and network | `asf-system-administrator` (available), `asf-network-engineer` (available) |
 | Reliability and scale | SRE split from DevOps, performance engineer, database administrator |
 | Data and ML | data engineer, ML engineer, analytics engineer |
 | Compliance and trust | compliance and privacy officer, legal reviewer, accessibility auditor |
@@ -72,9 +73,9 @@ the size presets above. Bold skills exist today.
 
 | Goal | Typical ask | Starting team |
 |---|---|---|
-| Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`** or **`asf-backend-engineer`**), QA *(planned)* |
+| Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`** or backend *(planned)*), QA *(planned)* |
 | Add features | "Add payments", "build the admin area" | **`asf-product-manager`**, **`asf-software-architect`**, build skills, **`asf-ui-ux-designer`** if there is new UI |
-| Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, security *(planned)* |
+| Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, **`asf-security-engineer`** review |
 | Migrate or modernise | "Move to another framework or host", "split the monolith" | **`asf-cto`**, **`asf-software-architect`**, **`asf-devops-engineer`**, build skills |
 | Launch or grow | "Go live", "get more traffic" | **`asf-devops-engineer`**, **`asf-seo-specialist`**, **`asf-product-manager`** |
 
@@ -89,8 +90,8 @@ skills are installed as active; the others wait in `.asf/bench/`.
 |---|---|
 | `discover` | product manager, CTO |
 | `design` | product manager, CTO, UI/UX designer, architect |
-| `build` | architect, UI/UX designer, frontend, backend, DevOps, SEO |
-| `launch` | product manager, frontend, backend, DevOps, SEO |
+| `build` | architect, UI/UX designer, frontend, DevOps, SEO |
+| `launch` | product manager, frontend, DevOps, SEO |
 | `operate` | DevOps, SEO |
 
 A skill can list several phases. `all` means always active.
@@ -107,9 +108,6 @@ Show the user this, then ask: accept, switch preset, or add/drop skills?
 | asf-product-manager | product manager, business analyst | discover, design, launch | ... |
 
 **Left out:** asf-software-architect (one service, one database; the CTO covers it).
-**Needed but not in the library yet:** QA engineer (planned); the backend and
-frontend skills write the tests for now.
-**Companions (Cloudflare chosen for hosting):** cloudflare, wrangler,
-workers-best-practices, cloudflare-email-service from cloudflare/skills
-(Apache-2.0), for Workers, D1, R2 and email specifics.
+**Needed but not in the library yet:** backend engineer (planned); the frontend
+and architect skills cover the API for now.
 ```

@@ -7,7 +7,7 @@ metadata:
   domain: "it"
   discipline: "delivery"
   phase: "all"
-  signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin"
+  signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin"
   presets: "core"
   version: "0.4.0"
 ---
@@ -105,6 +105,10 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
    to `.asf/project.md`; add ignore rules for build output, lockfiles,
    generated code and large data; turn off MCP servers and skills not in use.
    See [references/integrations.md](references/integrations.md#token-budget).
+   Then agree the per-task rules in
+   [references/integrations.md](references/integrations.md#per-task-token-rules):
+   large inputs go through a cheaper summariser, model size matches task
+   difficulty, and long sessions hand off to a fresh one with a written note.
 7. **Set the install policy**: list the tools the project needs (runtime,
    package manager, linters, CLIs), how each is installed, and whether the
    agent may install them. Prefer pinned versions and a dev container or
@@ -138,6 +142,7 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 - [ ] Tool versions are pinned or written down; installs follow the agreed policy.
 - [ ] Companion skills, if any, are for a chosen platform, listed in `.asf/project.md` and pinned to a commit.
 - [ ] Each integration was checked with one real, harmless task.
+- [ ] Model tiers and the handoff point are agreed and recorded.
 
 ## Anti-patterns
 
@@ -149,3 +154,7 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 - **"Works on my machine" setup.** If the setup is not in the repo, the next
   agent or teammate starts from zero.
 - **A new tracker nobody else reads.** Use the tool the humans already use.
+- **The biggest model for everything.** Searching and summarising on the
+  largest model costs several times more for the same result.
+- **One endless session.** Past a point, every turn re-reads a huge history;
+  hand off to a fresh session with a note instead.

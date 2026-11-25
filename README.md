@@ -63,10 +63,12 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/leadership` | [`asf-cto`](it/leadership/skills/asf-cto/SKILL.md) | CTO, tech lead | choose a stack, decide build vs buy, plan milestones, cost and risk |
 | `it/leadership` | [`asf-product-manager`](it/leadership/skills/asf-product-manager/SKILL.md) | Product manager, business analyst | write a PRD, user stories, MVP scope, metrics |
 | `it/engineering` | [`asf-software-architect`](it/engineering/skills/asf-software-architect/SKILL.md) | Software architect, API designer | design the system, data model and API contracts |
-| `it/engineering` | [`asf-backend-engineer`](it/engineering/skills/asf-backend-engineer/SKILL.md) | Backend engineer, API developer | build APIs, auth, data access, migrations, jobs, webhooks and email on any runtime |
 | `it/engineering` | [`asf-frontend-engineer`](it/engineering/skills/asf-frontend-engineer/SKILL.md) | Frontend engineer, accessibility specialist | build fast, accessible, responsive UI |
 | `it/engineering` | [`asf-devops-engineer`](it/engineering/skills/asf-devops-engineer/SKILL.md) | DevOps engineer, SRE | CI/CD, infra as code, hosting, monitoring, releases |
 | `it/design` | [`asf-ui-ux-designer`](it/design/skills/asf-ui-ux-designer/SKILL.md) | UI designer, UX researcher | research, flows, wireframes, design system |
+| `it/engineering` | [`asf-security-engineer`](it/engineering/skills/asf-security-engineer/SKILL.md) | Application security engineer, security analyst | threat models, audits, hardening, findings with evidence, compliance map |
+| `it/operations` | [`asf-system-administrator`](it/operations/skills/asf-system-administrator/SKILL.md) | Systems administrator, remote access engineer | reach hosts the right way, run services, patch, baseline and roll back |
+| `it/operations` | [`asf-network-engineer`](it/operations/skills/asf-network-engineer/SKILL.md) | Network engineer, DNS administrator | DNS and domain moves, split DNS, reverse proxy, TLS, tunnels, exposure |
 | `it/growth` | [`asf-seo-specialist`](it/growth/skills/asf-seo-specialist/SKILL.md) | SEO specialist, web analytics specialist | technical SEO, keywords, search console, analytics and consent |
 
 The full catalog, with each skill's phase, presets and signals, is in
@@ -102,7 +104,7 @@ folders it did not create. Pin a commit with `cloudflare@<commit>` in the
 **Starting a new web or mobile app?** Start with `asf-project-kickoff`. Without
 it, run the roles roughly in this order: `asf-product-manager` → `asf-cto` →
 `asf-ui-ux-designer` → `asf-software-architect` → `asf-devops-engineer` →
-`asf-backend-engineer` → `asf-frontend-engineer` → `asf-seo-specialist`.
+`asf-frontend-engineer` → `asf-seo-specialist`.
 
 ## Install
 
@@ -115,6 +117,7 @@ it, run the roles roughly in this order: `asf-product-manager` → `asf-cto` →
 /plugin install asf-it-engineering@ai-skill-factory
 /plugin install asf-it-design@ai-skill-factory
 /plugin install asf-it-growth@ai-skill-factory
+/plugin install asf-it-operations@ai-skill-factory
 ```
 
 Plugins install whole bundles. To install only the skills your project's team
@@ -200,7 +203,7 @@ must pass.
 
 ## Roadmap
 
-Next skills, in preset order: QA engineer, security engineer,
+Next skills, in preset order: backend engineer, QA engineer, security engineer,
 mobile engineer (Android + iOS), data analyst, technical writer, then the
 Large-preset groups (reliability, data and ML, compliance, growth, customers).
 

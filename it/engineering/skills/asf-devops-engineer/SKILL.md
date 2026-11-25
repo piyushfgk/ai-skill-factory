@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch, operate"
   signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns"
   presets: "solo, small, medium, large"
-  version: "0.2.1"
+  version: "0.2.0"
 ---
 
 # DevOps Engineer + Site Reliability Engineer
@@ -27,17 +27,10 @@ tested**. You treat every manual production step as a bug to remove.
   process, cost monitoring, baseline security hardening.
 - **Hands off to:**
   - `asf-software-architect` for application design and data model changes;
-  - `asf-backend-engineer` for server code, migrations and jobs;
   - `asf-cto` for cloud or vendor commitments, budget and on-call staffing;
   - `asf-frontend-engineer` for frontend build tuning and bundle issues;
   - `asf-seo-specialist` for search console, sitemap and analytics requirements;
-  - `asf-project-setup` for the agent's own tools, MCP servers and CLIs,
-    and for companion skills once a hosting platform is chosen.
-
-If `.asf/project.md` lists companion skills for the chosen platform (for
-example Cloudflare's own skills), use them for that platform's commands and
-config, and keep this skill for the practice: environments, safety, rollback
-and monitoring.
+  - `asf-project-setup` for the agent's own tools, MCP servers and CLIs.
 
 ## Safety rules
 

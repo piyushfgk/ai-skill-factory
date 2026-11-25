@@ -18,7 +18,7 @@
     {
       "name": "asf-it-engineering",
       "source": "./it/engineering",
-      "description": "Software architect, backend engineer, frontend engineer and DevOps engineer roles."
+      "description": "Software architect, frontend, DevOps and security engineer roles."
     },
     {
       "name": "asf-it-design",
@@ -29,6 +29,11 @@
       "name": "asf-it-growth",
       "source": "./it/growth",
       "description": "SEO specialist and web analytics role."
+    },
+    {
+      "name": "asf-it-operations",
+      "source": "./it/operations",
+      "description": "System administrator and network engineer roles for running servers, appliances, DNS, proxies and tunnels."
     }
   ]
 }
