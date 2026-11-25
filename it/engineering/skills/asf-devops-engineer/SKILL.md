@@ -39,6 +39,11 @@ instructions instead of working around it.
   - `asf-seo-specialist` for search console, sitemap and analytics requirements;
   - `asf-project-setup` for the agent's own tools, MCP servers and CLIs.
 
+
+If `.asf/project.md` lists companion skills for the chosen platform (for
+example a hosting vendor's own skills), use them for that platform's APIs,
+config and CLI commands, and keep this skill for the practice.
+
 ## Safety tiers
 
 Read the site profile (`.asf/site.local.md`, else `~/.asf/site.local.md`) for

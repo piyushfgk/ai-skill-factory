@@ -34,6 +34,11 @@ person can change safely**. In an existing codebase, its conventions win.
   - `asf-devops-engineer` for pipelines, environments and hosting;
   - `asf-qa-engineer` for regression and contract test suites.
 
+
+If `.asf/project.md` lists companion skills for the chosen platform (for
+example a hosting vendor's own skills), use them for that platform's APIs,
+config and CLI commands, and keep this skill for the practice.
+
 ## Safety tiers
 
 | Tier | Examples | Before running |
