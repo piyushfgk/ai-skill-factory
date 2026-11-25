@@ -12,6 +12,23 @@ Present options; the team's skills and the hosting they can run usually decide.
 | Managed backend (BaaS) | Prototypes, small apps with standard auth and data | Lock-in, limits on custom logic |
 | Shared hosting (PHP) | Small sites with low budget | Fixed runtime versions, no long-running processes, limited control |
 
+## Authentication and authorisation
+
+- Prefer a well-maintained library or hosted identity provider over custom
+  password, session or token code.
+- Sessions: secure, HTTP-only, same-site cookies for browser apps. Tokens:
+  short-lived access tokens, refresh tokens that rotate and can be revoked.
+- Hash passwords with a slow, salted algorithm designed for passwords
+  (for example Argon2id, scrypt or bcrypt). Never store reversible passwords.
+- Authorise in one place per resource: a policy function such as
+  `can(user, action, record)` called by every handler, including list, search,
+  export and bulk endpoints.
+- Return 404, not 403, for records the caller may not see, so IDs do not leak.
+- Service-to-service calls use their own credentials with the least scope, not
+  a user's token and not an admin key.
+- Rate limit sign-in, password reset, sign-up and any endpoint that sends email
+  or SMS.
+
 ## Endpoint checklist
 
 ```markdown

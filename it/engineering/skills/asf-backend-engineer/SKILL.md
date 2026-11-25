@@ -68,7 +68,10 @@ person can change safely**. In an existing codebase, its conventions win.
 6. **Check performance**: query count and plans, N+1 queries, payload size,
    caching where it is safe to be stale.
 7. **Ship in small steps** behind feature flags or backward-compatible changes;
-   expand, migrate, then contract for schema changes.
+   expand, migrate, then contract for schema changes. Before the first
+   production deploy, run the
+   [service readiness checklist](references/service-checklist.md) and give
+   `asf-devops-engineer` its hand-off note.
 8. **For legacy PHP or CMS sites**, follow
    [references/legacy-php-cms.md](references/legacy-php-cms.md): staging copy
    first, runtime end-of-life check, plugin and core updates with rollback.
@@ -80,6 +83,7 @@ person can change safely**. In an existing codebase, its conventions win.
 | Working code with tests | Code in the user's repo | Follow project conventions |
 | Endpoint notes | Contract, errors, auth, examples | [references/backend-standards.md](references/backend-standards.md#endpoint-checklist) |
 | Job and queue design | Trigger, retries, idempotency key, dead-letter handling | [references/backend-standards.md](references/backend-standards.md#jobs-and-queues) |
+| Service readiness check and DevOps hand-off note | Checklist with evidence | [references/service-checklist.md](references/service-checklist.md) |
 | Legacy site maintenance plan | Updates, runtime, backups, rollback | [references/legacy-php-cms.md](references/legacy-php-cms.md) |
 
 ## Checklists
