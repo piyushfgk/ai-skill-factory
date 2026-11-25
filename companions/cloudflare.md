@@ -58,6 +58,30 @@ The repo has more skills; list them from the source before adding others.
 - `asf-software-architect` and `asf-cto` decide whether Cloudflare fits; the
   `cloudflare` skill helps map needs to products once it does.
 
+## Caching and updates on Cloudflare
+
+When a site is proxied through Cloudflare, check these so releases show up at
+once (the stack-neutral rules are in `asf-frontend-engineer`'s
+`references/cache-busting.md`); confirm names in the current dashboard and
+docs, or with the companion skills, because Cloudflare renames settings:
+
+- **Caching level** stays at Standard, which keeps the query string in the
+  cache key; "Ignore query string" breaks `?v=` versions.
+- **Browser Cache TTL** set to respect existing headers, so the origin's
+  `no-cache` on HTML and `immutable` on assets reach the browser.
+- **HTML is not edge-cached by default.** A Cache Rule or Page Rule with
+  "cache everything" changes that; if one exists, the deploy must purge.
+- **Purge on deploy** from the pipeline with the API (purge by URL for HTML
+  and entry files, or purge everything on small sites), using a scoped API
+  token with only cache purge permission for that zone, stored in CI secrets.
+- **Pages and Workers static assets** already get hashed URLs from most
+  build tools and are invalidated on each deployment; still set headers for
+  HTML, `sw.js` and the manifest (for example in a `_headers` file).
+- **Development mode** bypasses the cache for a few hours; useful for
+  debugging, never a substitute for versioning.
+- Verify with `curl -sI https://example.com/` and read `cf-cache-status`
+  (`HIT`, `MISS`, `DYNAMIC`, `REVALIDATED`).
+
 ## Install routes
 
 Pick one per agent. All of them fetch third-party content: show the user the
