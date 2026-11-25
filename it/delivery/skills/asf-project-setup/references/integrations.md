@@ -63,6 +63,76 @@ Habits that help: ask for summaries instead of full logs, run long searches in
 a sub-agent where the platform has them, and start a fresh session for an
 unrelated task.
 
+### Per-task token rules
+
+What is spent while working, and how to spend less. These work on any agent
+that can run a sub-agent or switch models; where it cannot, the user can do
+the same by hand.
+
+1. **Route large inputs through a summariser.** A file, log, web page or tool
+   result over about 2,000 tokens (roughly 8 KB of text) goes to a sub-agent
+   or a smaller, cheaper model first. It returns only what the task needs:
+   the answer, the relevant lines with their locations, and anything
+   surprising. The main session never holds the raw input. Skip this when the
+   task is to edit that exact file.
+2. **Match the model to the task.** Agree three tiers with the user and
+   record them in the setup record:
+
+   | Tier | Typical work | Model |
+   |---|---|---|
+   | Easy | Search, summarise, rename, format, fill a template, read logs | Smallest or cheapest available |
+   | Normal | Write and fix code, write tests, review a diff | Mid-size default |
+   | Hard | Architecture, tricky debugging, security review, planning across many files | Largest available |
+
+   Delegate easy and normal work to a sub-agent on the cheaper model where the
+   platform allows it, and keep the largest model for the hard parts. When
+   unsure, start one tier lower and move up if the result is weak.
+3. **Use the lowest reasoning or effort setting that does the job** on
+   platforms that have one: low for lookups and mechanical edits, higher only
+   for planning and debugging.
+4. **Hand off before the context gets long.** Long sessions cost more per turn
+   and the agent gets worse at using what is in them. When a session passes
+   about half of the model's context window (or about 200,000 tokens, whichever
+   comes first), or switches to an unrelated task, write a handoff note and
+   start a fresh session from it. Use the template below.
+5. **Keep images small.** Screenshots and other images cost far more than the
+   same information as text. Prefer reading page text or the accessibility
+   tree; when an image is needed, capture only the relevant area at reduced
+   size.
+
+#### Handoff note
+
+Save it as `.asf/handoff.md` (git-ignored, or commit it if the team wants a
+record) and start the next session with "Read `.asf/handoff.md` and continue".
+
+```markdown
+# Handoff: <task> (<date>)
+
+- Goal: <what done looks like>
+- Done so far: <changes, with file paths, branch, PR or commit>
+- Decisions and why: <choices made, options rejected>
+- Current state: <what works, what fails, exact error if any>
+- Next steps: <ordered list>
+- Open questions for the user: <list, or none>
+- Read first: <the few files or docs the next session needs>
+```
+
+### Claude Code only
+
+Optional tips for teams on Claude Code; other agents can skip this.
+
+- **Effort levels.** Set a lower effort for simple tasks and raise it only for
+  hard ones; the setting and its command change between versions, so check
+  the current docs.
+- **Prompt cache.** Repeated context is cached for a few minutes (longer on
+  some plans). Coming back to a long session after the cache expires re-reads
+  the whole history at full price; for a long session, a handoff to a fresh
+  one is often cheaper than resuming.
+- **Sub-agent models.** A sub-agent definition can name a smaller model, which
+  is how the tiers above are applied.
+- **Usage checks.** Use the built-in cost or usage command to see where tokens
+  went before tuning anything.
+
 ## Setup record
 
 Fill this into the "Setup" section of `.asf/project.md`:
@@ -79,4 +149,5 @@ Fill this into the "Setup" section of `.asf/project.md`:
 - Install policy: <ask each time | allow-list: ... | container only | never>
 - Tools: <runtime + version>, <package manager>, <linters>, <CLIs>
 - Secrets: <env vars from an ignored .env | secret store>; names: <VAR_A, VAR_B>
+- Model tiers: easy <model>, normal <model>, hard <model>; handoff at <about N tokens>
 ```
