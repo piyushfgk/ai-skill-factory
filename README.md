@@ -71,6 +71,12 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/engineering` | [`asf-security-engineer`](it/engineering/skills/asf-security-engineer/SKILL.md) | Application security engineer, security analyst | threat models, audits, hardening, findings with evidence, compliance map |
 | `it/operations` | [`asf-system-administrator`](it/operations/skills/asf-system-administrator/SKILL.md) | Systems administrator, remote access engineer | reach hosts the right way, run services, patch, baseline and roll back |
 | `it/operations` | [`asf-network-engineer`](it/operations/skills/asf-network-engineer/SKILL.md) | Network engineer, DNS administrator | DNS and domain moves, split DNS, reverse proxy, TLS, tunnels, exposure |
+| `it/engineering` | [`asf-mobile-engineer`](it/engineering/skills/asf-mobile-engineer/SKILL.md) | Mobile engineer, mobile release engineer | native or cross-platform apps, offline sync, push, store releases |
+| `it/engineering` | [`asf-cloud-engineer`](it/engineering/skills/asf-cloud-engineer/SKILL.md) | Cloud engineer, cloud cost analyst | accounts, infra as code state and plans, environments, quotas, cost, exit plans |
+| `it/engineering` | [`asf-integration-engineer`](it/engineering/skills/asf-integration-engineer/SKILL.md) | Integration engineer, automation engineer | webhooks, email with SPF/DKIM/DMARC, messaging, MCP servers and CLIs, documents |
+| `it/engineering` | [`asf-ai-engineer`](it/engineering/skills/asf-ai-engineer/SKILL.md) | AI engineer, LLM evaluation engineer | LLM features, RAG, model choice and cost, guardrails, evals |
+| `it/operations` | [`asf-database-administrator`](it/operations/skills/asf-database-administrator/SKILL.md) | Database administrator, data reliability engineer | backups and restore drills, safe migrations, query tuning, engine choice |
+| `it/delivery` | [`asf-agent-orchestrator`](it/delivery/skills/asf-agent-orchestrator/SKILL.md) | AI delivery lead, agent operations engineer | brief worker agents, file ownership, review gates, hand-offs |
 | `it/growth` | [`asf-seo-specialist`](it/growth/skills/asf-seo-specialist/SKILL.md) | SEO specialist, web analytics specialist | technical SEO, keywords, search console, analytics and consent |
 
 The full catalog, with each skill's phase, presets and signals, is in
@@ -205,9 +211,8 @@ must pass.
 
 ## Roadmap
 
-Next skills: database administrator, mobile engineer, cloud engineer,
-integration engineer, AI engineer, agent orchestrator, then data analyst and
-technical writer.
+Next skills: data analyst and technical writer, then routing tests with
+made-up briefs.
 
 ## License
 

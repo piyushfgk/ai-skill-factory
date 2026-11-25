@@ -8,7 +8,7 @@
     {
       "name": "asf-it-delivery",
       "source": "./it/delivery",
-      "description": "Project kickoff and project setup: pick the right team of skills for a brief and set up the agent's tools. Install this first."
+      "description": "Project kickoff, project setup and agent orchestration: pick the right team of skills for a brief, set up the agent's tools and run worker agents. Install this first."
     },
     {
       "name": "asf-it-leadership",
@@ -18,7 +18,7 @@
     {
       "name": "asf-it-engineering",
       "source": "./it/engineering",
-      "description": "Software architect, frontend, DevOps and security engineer roles."
+      "description": "Software architect, frontend, backend, mobile, QA, DevOps, cloud, integration, AI and security engineer roles."
     },
     {
       "name": "asf-it-design",
@@ -33,7 +33,7 @@
     {
       "name": "asf-it-operations",
       "source": "./it/operations",
-      "description": "System administrator and network engineer roles for running servers, appliances, DNS, proxies and tunnels."
+      "description": "System administrator, network engineer and database administrator roles for running servers, appliances, DNS, proxies, tunnels and databases."
     }
   ]
 }
