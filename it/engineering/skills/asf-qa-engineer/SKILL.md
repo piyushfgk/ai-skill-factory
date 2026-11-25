@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch, operate"
   signals: "test, testing, qa, regression, e2e, end to end, playwright, cypress, selenium, contract test, smoke test, bug, flaky, release check, before and after, visual diff, test plan"
   presets: "small, medium, large"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # QA Engineer + Test Automation Engineer
@@ -87,6 +87,8 @@ Use test accounts and fake data; never real customers' data in tests or bug repo
 - [ ] The suite on each change finishes fast enough that people wait for it.
 - [ ] Flaky tests are fixed or quarantined with an owner and a date, never ignored.
 - [ ] A smoke test runs after every deploy, and its failure triggers the rollback rule.
+- [ ] Web deploys: the smoke test confirms the live release version and that a
+      returning browser (with a warm cache) gets the new version without clearing data.
 - [ ] Bug reports reproduce from the steps alone.
 
 ## Anti-patterns

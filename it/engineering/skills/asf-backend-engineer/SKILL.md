@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch"
   signals: "backend, api, server, endpoint, rest, graphql, auth, login, jobs, queue, cron, webhook, serverless, functions, php, laravel, wordpress, cms, node, python, golang, cache, uploads, payments"
   presets: "small, medium, large"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Backend Engineer + API Engineer
@@ -101,6 +101,8 @@ config and CLI commands, and keep this skill for the practice.
 - [ ] Secrets come from configuration, not code.
 - [ ] Logs carry a request ID and no passwords, tokens or full personal data.
 - [ ] Changes are backward compatible for existing clients, or versioned.
+- [ ] Generated HTML and API responses send an explicit `Cache-Control`;
+      templates add a version to asset URLs; page caches are purged on publish.
 
 ## Anti-patterns
 

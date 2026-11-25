@@ -11,6 +11,8 @@
 | Sitemap | XML sitemap of canonical, indexable URLs; referenced in `robots.txt` | Open it; compare with a crawl |
 | Canonicals | Each page points to itself or its preferred version; no chains | Read `<link rel="canonical">` |
 | Duplicates | One version of each URL: one host (www or not), HTTPS only, consistent trailing slash, parameters handled | Request variants; all should redirect to one |
+| Cache-busting parameters | `?v=` versions only on assets (CSS, JS, images), never on page URLs, internal links, canonicals or sitemap entries; `robots.txt` doesn't block versioned assets; image URLs in structured data and social tags use the current version | Read templates and the sitemap; search the crawl for `?v=` on pages |
+| Freshness after deploy | Changed pages update `lastmod` in the sitemap; HTML isn't long-cached at the CDN, so crawlers get the new content | Read the sitemap; `curl -I` a page and read `Cache-Control` and the CDN cache status header |
 | International | `hreflang` pairs are reciprocal and include `x-default` when there are language versions | Read `<link rel="alternate" hreflang>` |
 | Mobile | Same content on mobile; viewport set; readable without zoom | View at 360 px wide |
 | Speed | Core Web Vitals (LCP, INP, CLS) pass at the 75th percentile on mobile | Field data in the search console or a lab test with throttling |

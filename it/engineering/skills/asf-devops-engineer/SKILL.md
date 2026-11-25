@@ -1,15 +1,15 @@
 ---
 name: asf-devops-engineer
-description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review. Not for agent tooling such as MCP servers or trackers (use asf-project-setup).
+description: Acts as a DevOps engineer and site reliability engineer (SRE) for web and mobile app projects. Use when the user needs environments, CI/CD pipelines, containers, infrastructure as code, cloud or server hosting, secrets management, mobile build and store release automation, monitoring, logging, alerting, backups, SLOs, incident response or a production readiness review. Also covers cache headers and CDN purge on deploy when users still see an old version after a release. Not for agent tooling such as MCP servers or trackers (use asf-project-setup).
 license: GPL-3.0-only
 metadata:
   roles: "devops-engineer, site-reliability-engineer"
   domain: "it"
   discipline: "engineering"
   phase: "build, launch, operate"
-  signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns"
+  signals: "hosting, deploy, ci/cd, containers, infrastructure, cloud, servers, monitoring, backups, release, domain, dns, cdn, cache purge, stale cache"
   presets: "solo, small, medium, large"
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # DevOps Engineer + Site Reliability Engineer
@@ -79,27 +79,35 @@ reference them by name in the platform's secret store.
 4. **Build the pipeline** using the stages in the playbook: lint, test, build once,
    scan, deploy to staging, smoke test, promote the **same artifact** to
    production, verify. Never rebuild per environment.
-5. **Set smoke-test baselines and rollback criteria** before each release with
+5. **Make every release visible at once**: agree the asset versioning
+   scheme and the cache header table with `asf-frontend-engineer` (see its
+   `references/cache-busting.md`), set the headers in the server or CDN
+   config, and add a pipeline stage that purges HTML and unversioned entry
+   files (service worker, manifest, `version.json`) from the CDN and any page
+   cache after the new files are live. Check that the CDN cache key includes
+   the query string when assets use `?v=`. Keep the previous release's
+   hashed assets available for at least a day.
+6. **Set smoke-test baselines and rollback criteria** before each release with
    `asf-qa-engineer`: which checks run after deploy, what result counts as a
    failure, and the rollback that follows automatically or by a named person.
-6. **Codify infrastructure** with an infrastructure-as-code tool the team can
+7. **Codify infrastructure** with an infrastructure-as-code tool the team can
    maintain. Store state remotely with locking. Review changes as a plan in pull
    requests.
-7. **Handle secrets and config**: twelve-factor config through environment
+8. **Handle secrets and config**: twelve-factor config through environment
    variables or a secret manager; separate secrets per environment; rotation plan.
-8. **Automate mobile releases** if there are apps: signing keys in secure
+9. **Automate mobile releases** if there are apps: signing keys in secure
    storage, build numbers from CI, internal test tracks, staged rollouts.
    See [references/devops-playbook.md](references/devops-playbook.md#mobile-release-pipeline).
-9. **Add observability**: structured logs, the four golden signals (latency,
+10. **Add observability**: structured logs, the four golden signals (latency,
    traffic, errors, saturation), uptime checks, error tracking for web and
    mobile, and alerts tied to user impact.
-10. **Set SLOs and error budgets** for the critical journeys, and alert on burn rate
+11. **Set SLOs and error budgets** for the critical journeys, and alert on burn rate
    rather than on every spike.
-11. **Protect data**: automated backups, encryption at rest and in transit,
+12. **Protect data**: automated backups, encryption at rest and in transit,
     tested restore with a measured time.
-12. **Prepare for incidents**: runbooks for the top failure modes, an incident
+13. **Prepare for incidents**: runbooks for the top failure modes, an incident
     process, and blameless post-incident reviews.
-13. **Run the production readiness review** in
+14. **Run the production readiness review** in
     [references/production-readiness.md](references/production-readiness.md)
     before launch.
 
@@ -132,6 +140,9 @@ reference them by name in the platform's secret store.
 - [ ] Analytics and consent scripts are counted in the performance budget and
       loaded only as the consent setup requires.
 - [ ] PWAs: the service worker file is served with `Cache-Control: no-cache`.
+- [ ] HTML is served `no-cache`, versioned assets `max-age=31536000, immutable`,
+      and every deploy purges HTML and entry files from the CDN; nobody is
+      told to clear their cache after a release.
 
 ## Anti-patterns
 
@@ -142,4 +153,6 @@ reference them by name in the platform's secret store.
 - **Alert floods.** Paging on CPU spikes instead of user impact.
 - **Untested backups.** A backup is only real after a successful restore.
 - **Long-lived shared credentials** in CI variables or developer laptops.
+- **Purging nothing, or purging by hand.** Stale HTML at the edge after a
+  deploy; make the purge a pipeline step.
 - **Friday big-bang releases.** Prefer small, frequent, observable releases.

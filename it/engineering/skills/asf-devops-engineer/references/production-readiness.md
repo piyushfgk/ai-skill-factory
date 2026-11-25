@@ -10,6 +10,12 @@ Pass, Fail (with an action and owner), or N/A.
 - [ ] Rollback tested and takes under 15 minutes.
 - [ ] Database migrations are backward compatible.
 - [ ] Feature flags exist for risky features.
+- [ ] Each release has a version visible in the page or `version.json`.
+- [ ] Assets use hashed names or `?v=` versions; cache headers follow the
+      table in `asf-frontend-engineer`'s `references/cache-busting.md`.
+- [ ] The pipeline purges HTML and entry files from the CDN and page caches
+      after deploy; the CDN cache key includes the query string.
+- [ ] A returning browser sees the new release on a normal reload.
 
 ## Reliability
 

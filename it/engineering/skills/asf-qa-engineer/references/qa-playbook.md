@@ -56,9 +56,27 @@ A short, read-only list run right after each deploy (by CI or the agent):
 | Home page loads, no console errors | yes | roll back |
 | Login with smoke-test account | dashboard shown | roll back |
 | Main API list endpoint | 200, non-empty | investigate 10 min, then roll back |
+| Release version in the page or `version.json` | matches the deploy | purge caches, recheck, then investigate |
+| `Cache-Control` on HTML, a hashed asset, `sw.js` | `no-cache`, `immutable`, `no-cache` | fix config before next deploy |
 ```
 
 Agree the rollback criteria before the deploy, not during the incident.
+
+### Stale cache check (web and PWA)
+
+Run it in a browser profile that visited the site before the deploy, not only
+a private window, because that is what returning users have:
+
+1. Reload normally (no hard refresh, no cleared data). The new version shows.
+2. PWA: the update prompt appears (or the app auto-updates, as designed), and
+   after reload the browser's dev tools show only the new version's caches.
+3. A tab left open from before the deploy can still navigate without
+   "failed to load chunk" errors.
+4. Images or files replaced under the same name show the new content
+   (their `?v=` changed).
+
+"Clear your cache" is never an accepted fix; file it as a bug for
+`asf-frontend-engineer` or `asf-devops-engineer`.
 
 ## Bug report
 

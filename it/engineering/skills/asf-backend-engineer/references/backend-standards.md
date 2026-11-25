@@ -66,6 +66,25 @@ Consistent error body, for example:
 - Invalidate on write, or use short TTLs; never cache per-user data in a shared cache key.
 - Measure hit rate before adding layers.
 
+### HTTP cache headers and asset versions
+
+Users who don't see an update are usually served a cached copy. Set headers
+on purpose (full table in `asf-frontend-engineer`'s `references/cache-busting.md`):
+
+- Server-rendered HTML: `Cache-Control: no-cache` with an `ETag` or
+  `Last-Modified`, so browsers revalidate on every load and get a cheap 304.
+- API responses: `private, no-cache` or `no-store` for user data; a short
+  `public, max-age` only for shared, non-personal data. Add `Vary` for any
+  header that changes the response (for example `Accept-Encoding`, `Accept-Language`).
+- Static files the server or framework serves: long `immutable` caching only
+  for versioned URLs; short caching for anything that keeps its name.
+- Templates that print asset URLs add a version: the build's hashed name, or
+  `?v=<file hash or modification time>` for fixed names (CMS themes and
+  plugins usually have a version argument for scripts and styles; use it).
+- Expose the release version (header, `version.json` or health endpoint) so
+  the frontend and smoke tests can confirm which release is live.
+- On content publish, purge the page cache and the CDN for the changed URLs.
+
 ## Webhooks received
 
 - Verify the signature, check the timestamp, store the raw event, return 2xx
