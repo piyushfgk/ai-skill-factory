@@ -9,7 +9,7 @@ metadata:
   phase: "build, launch"
   signals: "website, landing page, web app, pages, contact form, ui, components, design system code, responsive, accessibility, wcag, core web vitals, pwa, offline, cache busting, stale cache, update not showing"
   presets: "solo, small, medium, large"
-  version: "0.4.1"
+  version: "0.4.2"
 ---
 
 # UI/UX Frontend Engineer + Accessibility Specialist

@@ -76,6 +76,9 @@ If the reverse proxy, CDN or tunnel provider caches responses:
 - Give `asf-devops-engineer` a purge command or API call for the pipeline,
   and a cache-status response header to verify hits and misses.
 
+The full settings table, purge and verify steps and provider notes (including
+Cloudflare) are in `asf-devops-engineer`'s `references/cdn-cache.md`.
+
 ## Tunnels and VPN
 
 | Option | Good for | Trade-offs |
