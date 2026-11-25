@@ -52,7 +52,9 @@ Fill the profile and mark each line, then ask only about the guesses:
 |---|---|---|
 | Kind of project | Web framework config, mobile folders, API route folders, notebooks | Frontend, mobile, architect, data skills |
 | Languages and frameworks | Package and build manifests | Recorded; skills follow the existing stack |
-| Hosting and infra | Container files, IaC folders, platform config | `asf-devops-engineer` |
+| Hosting and infra | Container files, IaC folders, platform config (for example `wrangler.toml`, `eas.json`) | `asf-devops-engineer` |
+| Services on a host | Process manager files, systemd units and timers | `asf-system-administrator` |
+| Windows automation | PowerShell scripts | `asf-system-administrator`, `asf-security-engineer` for hardening |
 | CI/CD | CI workflow files | `asf-devops-engineer` |
 | Tests | Test folders and runner config | QA (planned) when missing or thin |
 | PWA | Web app manifest, service worker | `asf-frontend-engineer` PWA reference |

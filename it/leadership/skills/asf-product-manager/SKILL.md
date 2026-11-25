@@ -9,7 +9,7 @@ metadata:
   phase: "discover, design, launch"
   signals: "app idea, product brief, prd, users, personas, user stories, mvp, scope, backlog, metrics, competitors"
   presets: "solo, small, medium, large"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Product Manager + Business Analyst
@@ -32,6 +32,23 @@ serve the success metric.
 
 If a hand-off skill is not installed, note the open question for that role
 instead of guessing a technical answer.
+
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Reading feedback, analytics and docs; drafting PRDs and stories | Nothing; do it |
+| Change | Creating or reordering tracker issues; committing PRDs | Say what changes and how to undo it; get approval for this step |
+| Destructive | Closing or deleting many issues, changing a published roadmap | Show the exact action and what it affects; get approval for this exact action |
+
+
+## Short path for defined work
+
+When the work is an internal fix, a bug or an audit finding with its scope
+already defined, skip personas, competitor scans and the full PRD. Write one
+short ticket: problem, evidence, expected outcome, acceptance criteria, owner,
+and priority against the current backlog. Use the full workflow only when the
+scope is unclear.
 
 ## Ask before starting
 

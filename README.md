@@ -66,6 +66,8 @@ tokens and compete. A small, recorded, per-project team avoids both.
 | `it/engineering` | [`asf-frontend-engineer`](it/engineering/skills/asf-frontend-engineer/SKILL.md) | Frontend engineer, accessibility specialist | build fast, accessible, responsive UI |
 | `it/engineering` | [`asf-devops-engineer`](it/engineering/skills/asf-devops-engineer/SKILL.md) | DevOps engineer, SRE | CI/CD, infra as code, hosting, monitoring, releases |
 | `it/design` | [`asf-ui-ux-designer`](it/design/skills/asf-ui-ux-designer/SKILL.md) | UI designer, UX researcher | research, flows, wireframes, design system |
+| `it/engineering` | [`asf-backend-engineer`](it/engineering/skills/asf-backend-engineer/SKILL.md) | Backend engineer, API engineer | APIs, business logic, auth, jobs, serverless, legacy PHP and CMS sites |
+| `it/engineering` | [`asf-qa-engineer`](it/engineering/skills/asf-qa-engineer/SKILL.md) | QA engineer, test automation engineer | regression, contract and smoke tests, before/after comparisons, release sign-off |
 | `it/engineering` | [`asf-security-engineer`](it/engineering/skills/asf-security-engineer/SKILL.md) | Application security engineer, security analyst | threat models, audits, hardening, findings with evidence, compliance map |
 | `it/operations` | [`asf-system-administrator`](it/operations/skills/asf-system-administrator/SKILL.md) | Systems administrator, remote access engineer | reach hosts the right way, run services, patch, baseline and roll back |
 | `it/operations` | [`asf-network-engineer`](it/operations/skills/asf-network-engineer/SKILL.md) | Network engineer, DNS administrator | DNS and domain moves, split DNS, reverse proxy, TLS, tunnels, exposure |
@@ -203,9 +205,9 @@ must pass.
 
 ## Roadmap
 
-Next skills, in preset order: backend engineer, QA engineer, security engineer,
-mobile engineer (Android + iOS), data analyst, technical writer, then the
-Large-preset groups (reliability, data and ML, compliance, growth, customers).
+Next skills: database administrator, mobile engineer, cloud engineer,
+integration engineer, AI engineer, agent orchestrator, then data analyst and
+technical writer.
 
 ## License
 

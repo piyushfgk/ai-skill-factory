@@ -56,3 +56,14 @@ merge them or make their intents different.
    Webmaster Tools, which can import from Google Search Console).
 5. On a migration, use the console's change-of-address tool if offered, and
    keep the old property to watch the move.
+
+## Domain moves
+
+- [ ] Decide the one canonical host (apex or `www`) and redirect the other to it.
+- [ ] Map every old URL to a new URL (from the sitemap, analytics and a crawl); no mass redirects to the home page.
+- [ ] 301 redirects in one hop, for HTTP and HTTPS, with and without `www`.
+- [ ] Canonical tags, hreflang, sitemaps and internal links use the new URLs.
+- [ ] The new domain is verified in each search console before the switch; use the change-of-address tool where offered.
+- [ ] Keep the old domain and its redirects for at least a year.
+- [ ] Watch indexed pages, crawl errors and traffic for several weeks; fix 404s quickly.
+- [ ] Email records (MX, SPF, DKIM, DMARC) are kept working (with `asf-network-engineer`).

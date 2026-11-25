@@ -1,15 +1,15 @@
 ---
 name: asf-project-setup
-description: Acts as a developer-experience engineer and platform engineer who sets up how AI agents work on a project. Use after a project kickoff, or when the user asks which agent platform to use (Claude Code, Codex CLI, Gemini CLI or others), how to track progress (GitHub Issues, Jira, Linear, Trello, a TASKS.md), which MCP servers, CLIs or GitHub access to connect, how to save tokens or context, whether to build a small CLI for an app, which tools the agent may install, how the agent gets credentials, or which vendor companion skills to add for a chosen platform (for example Cloudflare's own skills for Workers, R2, D1 or email). Records the choices in .asf/project.md. Not for choosing the project's team of skills (use asf-project-kickoff) or for production hosting and CI/CD (use asf-devops-engineer).
+description: Acts as a developer-experience engineer and agent platform engineer who sets up how AI agents work on a project. Use after a project kickoff, or when the user asks which agent platform to use (Claude Code, Codex CLI, Gemini CLI or others), how to track progress (GitHub Issues, Jira, Linear, Trello, a TASKS.md), which MCP servers, CLIs or GitHub access to connect, how to save tokens or context, whether to build a small CLI for an app, which tools the agent may install, how the agent gets credentials, or which vendor companion skills to add for a chosen platform (for example Cloudflare's own skills for Workers, R2, D1 or email). Records the choices in .asf/project.md. Not for choosing the project's team of skills (use asf-project-kickoff) or for production hosting and CI/CD (use asf-devops-engineer).
 license: GPL-3.0-only
 metadata:
-  roles: "developer-experience-engineer, platform-engineer"
+  roles: "developer-experience-engineer, agent-platform-engineer"
   domain: "it"
   discipline: "delivery"
   phase: "all"
   signals: "agent setup, mcp, cli, github, tracker, jira, linear, token cost, context, model choice, handoff, tools to install, secrets, agent platform, companion skills, vendor skills, vendor plugin"
   presets: "core"
-  version: "0.4.0"
+  version: "0.4.1"
 ---
 
 # Developer-Experience Engineer + Platform Engineer
@@ -32,16 +32,19 @@ job, and a setup any teammate (or another agent) can reproduce from the repo**.
   - `asf-devops-engineer` for production CI/CD, hosting and cloud accounts;
   - `asf-cto` for paid tools and vendor commitments.
 
-## Safety rules
+## Safety tiers
 
-- Ask before installing anything, changing agent or MCP config, or granting
-  write access to a code host or tracker.
-- Never write a secret into the repo, the instruction file, `.asf/project.md`
-  or a committed MCP config. Reference secrets by environment variable name.
-- Keep site-specific details (hosts, addresses, accounts, access routes,
-  approvers, personal tools) in the git-ignored site profile, never in
-  `.asf/project.md` or any committed file.
-- Prefer read-only tokens and the narrowest scopes; widen only when a task needs it.
+Keep site-specific details (hosts, addresses, accounts, access routes,
+approvers, personal tools) in the git-ignored site profile, never in
+`.asf/project.md` or any committed file. Never write a secret anywhere; refer
+to it by environment variable or secret-store name. Prefer read-only tokens
+and the narrowest scopes.
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Listing installed tools, MCP servers, skills and config; checking auth status | Nothing; run it |
+| Change | Installing a tool, adding an MCP server, editing agent config or the instruction file, creating a token | Say what changes and how to undo it; get approval for this step |
+| Destructive | Removing tools or config, revoking tokens, granting write or admin access | Exact change shown; approval for this exact change |
 
 ## Ask before starting
 
@@ -72,8 +75,10 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
    exists and the work touches hosts, accounts or more than one workspace,
    offer to create one from
    [assets/site-profile-template.md](assets/site-profile-template.md). It holds
-   workspaces, hosts with how to reach them, accounts and where their secrets
-   live (names only), tools on the machine, and who approves which safety tier.
+   workspaces (the context the work happens in), hosts with how to reach them,
+   the account the agent acts as, which actions it may take on its own (the
+   highest safety tier per host or service) and who approves the rest, where
+   secrets live (names only), and the tools on the machine.
    Make sure `*.local.md` is git-ignored.
 2. **Pick the platform setup** with
    [references/platforms.md](references/platforms.md): where skills, the
@@ -86,7 +91,10 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 4. **Choose a route per app**, cheapest first, using
    [references/integrations.md](references/integrations.md#choosing-a-route):
    1. an existing official CLI (no standing context cost);
-   2. an MCP server, enabled for this project only and trimmed to the tools used;
+   2. an MCP server, only where it saves tokens or does what no CLI can. Scope
+      rule: small, everyday servers (for example docs lookup or code search)
+      may be enabled for all projects; heavy ones (browser automation, large
+      SaaS toolsets) only per project, trimmed to the tools used;
    3. a small custom CLI or script wrapping only the calls the project needs.
 5. **Add companion skills for the chosen platform.** When hosting or another
    platform is now decided (here, or by `asf-devops-engineer` or `asf-cto`)
@@ -135,7 +143,8 @@ Read `.asf/project.md` first and skip anything already recorded. Ask in one mess
 
 - [ ] In an existing project, the working setup was recorded before any change was proposed.
 - [ ] Every app the agent uses has one route (CLI, MCP or custom CLI) and a reason.
-- [ ] No MCP server is enabled globally that only one project needs.
+- [ ] Only small, everyday MCP servers are enabled for all projects; heavy ones are per project.
+- [ ] The site profile names the agent's account, allowed actions and approver for each host or service.
 - [ ] The instruction file is under about 100 lines and points to `.asf/project.md`.
 - [ ] Tokens are scoped to the minimum; write access is deliberate.
 - [ ] No secret values in the repo, config or project file.

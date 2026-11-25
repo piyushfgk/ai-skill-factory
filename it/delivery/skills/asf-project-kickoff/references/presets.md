@@ -38,8 +38,8 @@ coverage (larger team).
 |---|---|
 | `asf-cto` | Stack and build-vs-buy choices that are expensive to undo |
 | `asf-ui-ux-designer` | Flows and screens before code |
-| `asf-backend-engineer` *(planned)* | API, auth, database |
-| `asf-qa-engineer` *(planned)* | Test plan and release checks |
+| `asf-backend-engineer` | API, auth, database |
+| `asf-qa-engineer` | Test plan and release checks |
 
 ### Medium = Small plus
 
@@ -73,7 +73,8 @@ the size presets above. Bold skills exist today.
 
 | Goal | Typical ask | Starting team |
 |---|---|---|
-| Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`** or backend *(planned)*), QA *(planned)* |
+| Maintain | "Fix bugs, update dependencies, keep it running" | **`asf-devops-engineer`**, the stack's build skill (**`asf-frontend-engineer`**, **`asf-backend-engineer`**), **`asf-qa-engineer`** |
+| Operate (no code repo) | "The site is down", "patch the server", "renew the certificate" | **`asf-system-administrator`**, **`asf-network-engineer`**, **`asf-security-engineer`** if exposure is involved |
 | Add features | "Add payments", "build the admin area" | **`asf-product-manager`**, **`asf-software-architect`**, build skills, **`asf-ui-ux-designer`** if there is new UI |
 | Audit | "Review it", "is it ready to launch?" | One-off: **`asf-devops-engineer`** readiness review, **`asf-frontend-engineer`** accessibility check, **`asf-seo-specialist`** technical audit, **`asf-security-engineer`** review |
 | Migrate or modernise | "Move to another framework or host", "split the monolith" | **`asf-cto`**, **`asf-software-architect`**, **`asf-devops-engineer`**, build skills |

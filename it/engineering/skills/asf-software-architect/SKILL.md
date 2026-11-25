@@ -9,7 +9,7 @@ metadata:
   phase: "design, build"
   signals: "system design, architecture, data model, database, api, integrations, scalability, security review, adr"
   presets: "medium, large"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Software Architect + API Designer
@@ -29,7 +29,18 @@ meets the stated quality attributes.
   - `asf-cto` when a choice changes cost, timeline or the stack;
   - `asf-devops-engineer` for environments, deployment topology and observability;
   - `asf-frontend-engineer` for client state, rendering and UI architecture;
-  - `asf-product-manager` when a requirement is unclear or conflicting.
+  - `asf-product-manager` when a requirement is unclear or conflicting;
+  - `asf-backend-engineer` to implement services and APIs;
+  - `asf-security-engineer` for threat models on the trust boundaries.
+
+## Safety tiers
+
+| Tier | Examples | Before running |
+|---|---|---|
+| Read-only | Reading code, schemas and configs; drawing diagrams; writing decision records | Nothing; do it |
+| Change | Committing architecture docs or API contracts that others build against | Say what changes and how to undo it; get approval for this step |
+| Destructive | Approving a data migration or contract change that cannot be rolled back | Show the exact action and what it affects; get approval for this exact action |
+
 
 ## Ask before starting
 
@@ -56,13 +67,21 @@ meets the stated quality attributes.
    personal data is deleted on request.
 6. **Design the APIs** following [references/api-guidelines.md](references/api-guidelines.md).
    Write the contract first (for example OpenAPI or a GraphQL schema) before code.
-7. **Plan cross-cutting concerns:** authentication and authorisation, validation,
+7. **Mark trust boundaries** (browser, API, services, database, third parties,
+   admin tools, CI) and what is checked when crossing each one.
+8. **Design login and identity flows**: sign-up, login, sessions or tokens,
+   refresh, logout, password reset, MFA, single sign-on if needed, service-to-
+   service identity, and role or permission checks on the server.
+9. **Plan cross-cutting concerns:** authentication and authorisation, validation,
    error handling, logging, idempotency, rate limiting, caching, background jobs,
    file uploads, notifications.
-8. **Check the design against each quality scenario** and note how it is met,
+10. **Plan migrations for compatibility**: expand, migrate, contract; old and
+    new versions of clients and services working side by side; how data is
+    rolled back (backups, reversible migrations, or a forward fix) if a step fails.
+11. **Check the design against each quality scenario** and note how it is met,
    or which trade-off is accepted.
-9. **Write decision records** for every choice that is expensive to reverse.
-10. **Review with the user** and list follow-up work for other roles.
+12. **Write decision records** for every choice that is expensive to reverse.
+13. **Review with the user** and list follow-up work for other roles.
 
 ## Deliverables
 
@@ -83,6 +102,9 @@ meets the stated quality attributes.
 - [ ] Personal data is listed with where it is stored and how it is deleted.
 - [ ] APIs are versioned and have consistent errors and pagination.
 - [ ] The design has been checked against each quality scenario.
+- [ ] Trust boundaries are drawn and each has its checks.
+- [ ] Login, session and role flows are specified end to end.
+- [ ] Every migration keeps old and new versions working and has a data rollback.
 - [ ] Mobile clients can cope with old app versions still calling the API.
 
 ## Anti-patterns
